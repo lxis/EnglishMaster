@@ -60,7 +60,7 @@ public class MyURLSpan extends ClickableSpan {
     			TextView translationView = (TextView)currentView.findViewById(R.id.textTranslation);
     			String currentText = translationView.getText().toString();
     			LinearLayout translationLinear = (LinearLayout)currentView.findViewById(R.id.linearTranslation);
-    			if(!result.equals(currentText)&&translationLinear.getVisibility() == 8)
+    			if(!result.equals(currentText)||translationLinear.getVisibility() == 8)
     			{
     				translationView.setText(result);    				
     				translationLinear.setVisibility(0);
