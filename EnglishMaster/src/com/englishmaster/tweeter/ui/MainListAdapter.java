@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -54,7 +55,7 @@ public class MainListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup arg2) {
 		convertView = LayoutInflater.from(context).inflate(R.layout.listitem_main_list, null);
 		TextView textView1 = (TextView)convertView.findViewById(R.id.text1);
-		
+		final Article article = data.get(position);
 		String[] contents = data.get(position).Content.split(" ");		
         SetTextLink(textView1, contents,convertView);			
 		
@@ -68,7 +69,51 @@ public class MainListAdapter extends BaseAdapter {
 			}
 		});
 		
+		LoadGoodBad(convertView,article);
+		
+		ClickEvents(convertView, article);
 		return convertView;
+	}
+
+	private void LoadGoodBad(View convertView,final Article article) {
+		if(article.IsGood)
+		{
+			Button buttonGood = (Button)convertView.findViewById(R.id.buttonGood);
+			buttonGood.setTextColor(Color.rgb(140,210,50));
+		}
+		else if(article.IsBad)
+		{
+			Button buttonBad = (Button)convertView.findViewById(R.id.buttonBad);
+			buttonBad.setTextColor(Color.rgb(140,210,50));
+		}				
+	}
+
+	private void ClickEvents(View convertView, final Article article) {
+		final Button buttonGood = (Button)convertView.findViewById(R.id.buttonGood);
+		buttonGood.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				if(!article.IsGood&&!article.IsBad)
+				{
+					article.IsGood = true;
+					buttonGood.setTextColor(Color.rgb(140,210,50));
+				}				
+			}
+		});
+		
+		final Button buttonBad = (Button)convertView.findViewById(R.id.buttonBad);
+		buttonBad.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(!article.IsGood&&!article.IsBad)
+				{
+					article.IsBad = true;										
+					buttonBad.setTextColor(Color.rgb(140,210,50));					
+				}								
+			}
+		});
 	}
 
 	private void SetTextLink(TextView textView1, String[] words,View currentView) {
