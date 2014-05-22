@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.text.TextPaint;
 import android.text.style.ClickableSpan;
@@ -48,7 +49,7 @@ public class MyURLSpan extends ClickableSpan {
     			}
     			catch(IllegalArgumentException e)
     			{
-    				return "Wrong word for requesting";     
+    				return "ÇëÇó×Ö·ûÓÐÎó";     
     			}
     		}
     		@Override
@@ -57,9 +58,17 @@ public class MyURLSpan extends ClickableSpan {
     			super.onPostExecute(result);    			
     			
     			TextView translationView = (TextView)currentView.findViewById(R.id.textTranslation);
-    			translationView.setText(result);
+    			String currentText = translationView.getText().toString();
     			LinearLayout translationLinear = (LinearLayout)currentView.findViewById(R.id.linearTranslation);
-    			translationLinear.setVisibility(0);
+    			if(!result.equals(currentText)&&translationLinear.getVisibility() == 8)
+    			{
+    				translationView.setText(result);    				
+    				translationLinear.setVisibility(0);
+    			}
+    			else
+    			{
+    				translationLinear.setVisibility(8);
+    			}
     			
     			
     			

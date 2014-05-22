@@ -35,8 +35,9 @@
         android:id="@+id/linearTranslation"
         >
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"            
             android:id="@+id/textTranslation" 
             
         android:textSize="20dp"
@@ -53,15 +54,17 @@
         ></TextView>    
     </LinearLayout>
     	<LinearLayout
-    	    android:layout_width="match_parent"
-    	    android:layout_height="match_parent"
+    	    android:layout_width="match_parent"    	    
     	    android:orientation="horizontal"    	     
+    	    android:layout_height="wrap_content"
     	    >
     	    <Button 
     	        android:layout_width="170dp"
     	        android:layout_height="wrap_content"
-    	        android:text="看懂了"
-    	        android:background="#ffffff"
+    	        android:text="懂了"
+    	        android:textSize="16dp"
+    	        android:textColor="#929292"
+    	        android:background="#fafafa"
     	         />
     	    <TextView
     	        android:layout_width="1dp"
@@ -71,9 +74,10 @@
     	    <Button
     	        android:layout_width="match_parent"
     	        android:layout_height="wrap_content"    	        
-    	        android:text="没看懂"
-    	        
-    	        android:background="#ffffff"
+    	        android:text="没懂"
+    	        android:textSize="16dp"
+    	        android:textColor="#929292"
+    	        android:background="#fafafa"
     	         />
     	</LinearLayout>
     	<TextView
