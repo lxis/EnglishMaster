@@ -22,6 +22,7 @@ public class RestCommonClient {
 
 	public String GetStringFromNetwork(String url) {
 		HttpClient hc = new DefaultHttpClient();
+		url= url.replaceAll(" ", "%20");
 		HttpGet hg = new HttpGet(url);
 		try {
 			HttpResponse hr = hc.execute(hg);
