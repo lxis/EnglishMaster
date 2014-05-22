@@ -12,12 +12,12 @@ public class RestClient {
 	
 	public <T> T GetDtoFromServer(RestRequest request ,Class<T> classType)
 	{
-		String url = GenerateUrlByRequest(request);
-		String result = restCommonClient.GetStringFromNetwork(url);		
-		if(classType == String.class)
-			return (T)result;
-		T jsonObject = new Gson().fromJson(result, classType);
-		return jsonObject;
+		String url = GenerateUrlByRequest(request);				
+			String result = restCommonClient.GetStringFromNetwork(url);
+			if(classType == String.class)
+				return (T)result;
+			T jsonObject = new Gson().fromJson(result, classType);
+			return jsonObject;				
 	}
 
 	private String GenerateUrlByRequest(RestRequest request) {

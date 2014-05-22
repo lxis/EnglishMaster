@@ -15,8 +15,10 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainListAdapter extends BaseAdapter {
@@ -54,14 +56,22 @@ public class MainListAdapter extends BaseAdapter {
 		TextView textView1 = (TextView)convertView.findViewById(R.id.text1);
 		
 		String[] contents = data.get(position).Content.split(" ");		
-        SetTextLink(textView1, contents);			
+        SetTextLink(textView1, contents,convertView);			
 		
-		
+		final LinearLayout linearTranslation = (LinearLayout)convertView.findViewById(R.id.linearTranslation);
+		linearTranslation.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				linearTranslation.setVisibility(8);
+				
+			}
+		});
 		
 		return convertView;
 	}
 
-	private void SetTextLink(TextView textView1, String[] words) {
+	private void SetTextLink(TextView textView1, String[] words,View currentView) {
 		for(int i = 0;i<words.length;i++)		
 			words[i] = words[i];		
 		String clickText ="";
@@ -81,7 +91,7 @@ public class MainListAdapter extends BaseAdapter {
                 style.clearSpans(); // should clear old spans
                 for (URLSpan url : urls) 
                 {
-                        MyURLSpan myURLSpan = new MyURLSpan(url.getURL(),context);
+                        MyURLSpan myURLSpan = new MyURLSpan(url.getURL(),context,currentView);
                         style.setSpan(myURLSpan, sp.getSpanStart(url),
                                         sp.getSpanEnd(url), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         style.setSpan(new ForegroundColorSpan(Color.BLACK), sp.getSpanStart(url), sp.getSpanEnd(url), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

@@ -1,5 +1,6 @@
 package com.englishmaster.tweeter.ui;
 
+import com.englishmaster.tweeter.R;
 import com.englishmaster.tweeter.server.service.YoudaoService;
 
 import android.app.AlertDialog;
@@ -11,15 +12,19 @@ import android.os.AsyncTask;
 import android.text.TextPaint;
 import android.text.style.ClickableSpan;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MyURLSpan extends ClickableSpan {
     private String mUrl;
     private Context context;
+    private View currentView;
 
-    MyURLSpan(String url,Context context) {
+    MyURLSpan(String url,Context context,View currentView) {
             mUrl = url;
             this.context = context;
+            this.currentView = currentView;
     }
 
     @Override
@@ -37,22 +42,25 @@ public class MyURLSpan extends ClickableSpan {
     		@Override
     		protected String doInBackground(String... arg0) {
     			// TODO Auto-generated method stub
-    			return new YoudaoService().GetWord(mUrl);    			
+    			try
+    			{
+    				return new YoudaoService().GetWord(mUrl);
+    			}
+    			catch(IllegalArgumentException e)
+    			{
+    				return "Wrong word for requesting";     
+    			}
     		}
     		@Override
     		protected void onPostExecute(String result) {
     			// TODO Auto-generated method stub
     			super.onPostExecute(result);    			
     			
+    			TextView translationView = (TextView)currentView.findViewById(R.id.textTranslation);
+    			translationView.setText(result);
+    			LinearLayout translationLinear = (LinearLayout)currentView.findViewById(R.id.linearTranslation);
+    			translationLinear.setVisibility(0);
     			
-    			new AlertDialog.Builder(context)
-    			.setPositiveButton("OK", new DialogInterface.OnClickListener() {    				
-    				@Override
-    				public void onClick(DialogInterface dialog, int which) {				
-    		            		
-    				}
-    			})
-    			.setMessage("“‚Àº «:"+result).create().show();
     			
     			
     			

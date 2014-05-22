@@ -30,7 +30,7 @@ public class TweeterService {
 
 	private RestRequest GenerateRequest() {
 		RestRequest request = new RestRequest();
-		request.Url = "http://182.92.4.28/articlehandler.ashx?in=10&rn=10";		
+		request.Url = "http://182.92.4.28/articlehandler.ashx?in=20&rn=10";		
 		return request;
 	}
 }
