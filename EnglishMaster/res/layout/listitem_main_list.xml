@@ -61,7 +61,7 @@
     	    <Button 
     	        android:layout_width="170dp"
     	        android:layout_height="wrap_content"
-    	        android:text="懂了"
+    	        android:text="真倒霉"
     	        android:textSize="16dp"
     	        android:textColor="#929292"
     	        android:background="#fafafa"
@@ -74,7 +74,7 @@
     	    <Button
     	        android:layout_width="match_parent"
     	        android:layout_height="wrap_content"    	        
-    	        android:text="没懂"
+    	        android:text="很正常"
     	        android:textSize="16dp"
     	        android:textColor="#929292"
     	        android:background="#fafafa"
