@@ -53,6 +53,8 @@ public class MainListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
+		if(data.get(position)!=null)
+		{
 		convertView = LayoutInflater.from(context).inflate(R.layout.listitem_main_list, null);
 		TextView textView1 = (TextView)convertView.findViewById(R.id.text1);
 		final Article article = data.get(position);
@@ -73,6 +75,12 @@ public class MainListAdapter extends BaseAdapter {
 		
 		ClickEvents(convertView, article);
 		return convertView;
+		}
+		else
+		{
+			convertView = LayoutInflater.from(context).inflate(R.layout.listitem_main_list_loading, null);
+			return convertView;
+		}
 	}
 
 	private void LoadGoodBad(View convertView,final Article article) {

@@ -10,9 +10,9 @@ import com.englishmaster.tweeter.server.dto.TweetersDataDTO;
 import com.englishmaster.tweeter.server.dto.TweetsResponseDTO;
 
 public class TweeterService {
-	public ArrayList<Article> GetTweeters()
+	public ArrayList<Article> GetTweeters(int lastIndex, int singleCount)
 	{
-		RestRequest request = GenerateRequest();
+		RestRequest request = GenerateRequest(lastIndex,singleCount);
 		TweetsResponseDTO jsonObject = new RestClient().GetDtoFromServer(request, TweetsResponseDTO.class);
 		return ConvertDtoToDomain(jsonObject);		
 	}
@@ -28,9 +28,9 @@ public class TweeterService {
 		return data;
 	}
 
-	private RestRequest GenerateRequest() {
+	private RestRequest GenerateRequest(int lastIndex, int singleCount) {
 		RestRequest request = new RestRequest();
-		request.Url = "http://182.92.4.28/articlehandler.ashx?in=30&rn=50";		
+		request.Url = "http://182.92.4.28/articlehandler.ashx?in="+(lastIndex+1)+"&rn="+singleCount;		
 		return request;
 	}
 }

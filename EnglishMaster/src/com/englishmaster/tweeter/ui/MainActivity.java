@@ -15,9 +15,11 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.AbsListView.OnScrollListener;
 
 public class MainActivity extends Activity {
 
@@ -28,6 +30,8 @@ public class MainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         setContentView(R.layout.activity_main);
         listView = (ListView)findViewById(R.id.mainList);
+        data = new ArrayList<Article>();
+        data.add(null);
         LoadData();
         InitEvents();
     }
@@ -59,36 +63,65 @@ public class MainActivity extends Activity {
 				listLearn.setVisibility(8);
 				linearGrade.setVisibility(0);
 			}
+		});    			
+		
+		listView.setOnScrollListener(new OnScrollListener() {
+			
+			@Override
+			public void onScrollStateChanged(AbsListView arg0, int arg1) {}
+			
+			@Override
+			public void onScroll(AbsListView arg0, int arg1, int arg2, int totalCount) {
+				int lastPosition = listView.getLastVisiblePosition();				
+				if( totalCount <= lastPosition+1+preloadCount)		//现在最下的Item是第几个，		
+					LoadData();								
+			}
 		});
 		
 	}
+    
+    private int preloadCount = 1;
+    
+    private int startIndex = 1;
+    private int lastIndex = 1;
+    
+    private int singleCount = 1;
 
-
-
+    private Boolean isLoading = false;
+    
 	private void LoadData() {
+		if(isLoading)
+			return;
+		isLoading = true;
 		// TODO Auto-generated method stub
     	new AsyncTask<String,Integer,ArrayList<Article>>(){
     		@Override
     		protected ArrayList<Article> doInBackground(
     				String... params) {
-    			return new TweeterService().GetTweeters();
+    			return new TweeterService().GetTweeters(lastIndex,singleCount);
     		}    		
     		@Override
-    		protected void onPostExecute(ArrayList<Article> result) {
+    		protected void onPostExecute(ArrayList<Article> result) 
+    		{
+    			data.addAll(data.size()-1, result);   			
+				 
     			if(adapter == null)
     			{
-    				adapter = new MainListAdapter(result, MainActivity.this);
+    				adapter = new MainListAdapter(data, MainActivity.this);
     				listView.setAdapter(adapter);
-    			}
+    			}    		
     			else
     			{
     				adapter.notifyDataSetChanged();
     			}
+    			lastIndex = lastIndex+singleCount;
+    			
+    			isLoading = false;
     		};}.execute("");
 	}
 
 
-
+	ArrayList<Article> data;
 	MainListAdapter adapter;
     ListView listView;
 
