@@ -13,8 +13,12 @@ import java.util.Map.Entry;
 
 
 
+
+
+
 import com.englishmaster.tweeter.R;
 import com.englishmaster.tweeter.infrastructure.common.GlobalUncaughtExceptionHandler;
+import com.englishmaster.tweeter.infrastructure.common.common_simple_handlers.CommonSimpleHandlerGenic;
 
 import android.content.Context;
 import android.util.Log;
@@ -31,6 +35,7 @@ public class BindingAdapter<T extends BaseViewModel> extends BaseAdapter// T鏄�
 	protected Context context;// Adapter杩涜涓�簺鐣岄潰鎿嶄綔鎵�緷璧栫殑鐣岄潰涓婁笅鏂�
 	protected int layoutId;// 褰撳墠鍒楄〃椤圭殑瀵瑰簲Layout鐨処D銆�
 	protected Class modelClass;
+	protected BindingCore binding;
 
 	public BindingAdapter(ArrayList<T> data, Context context, int layoutId, Class modelClass)
 	{
@@ -40,6 +45,7 @@ public class BindingAdapter<T extends BaseViewModel> extends BaseAdapter// T鏄�
 		this.modelClass = modelClass;
 		for (T item : data)
 			item.setContext(context);
+		this.binding = new BindingCore();
 	}
 
 	@Override
@@ -117,25 +123,8 @@ public class BindingAdapter<T extends BaseViewModel> extends BaseAdapter// T鏄�
 		if (layoutId == 0) convertView.setTag(R.id.common_adapter_layout_id, itemLayoutId);
 		convertView.setTag(R.id.common_adapter_position, position);
 		T item = data.get(position);
-		bindData(convertView, item);
 		setViewData(convertView, item);
-	}
-
-	private void bindData(View convertView, T item) throws IllegalAccessException, InvocationTargetException
-	{
-		ArrayList<View> controls = VisualHelper.getAllChildrenControls(convertView);
-		for (View controlItem : controls)
-		{
-			Object tag = controlItem.getTag();
-			if (!checkBindedTag(tag)) continue;			
-			for (TagBindingParam vmModel : ((TagBinding)tag).Operations)
-				vmModel.Method.invoke(controlItem, vmModel.Field.get(item));
-		}
-	}
-
-	private boolean checkBindedTag(Object tag)//鏄惁鏈夋晥鐨勮В鏋愯繃鐨凾ag
-	{
-		return tag != null && tag instanceof TagBinding;
+		binding.bindData(convertView, item);
 	}
 
 	public void setViewData(View convertView, T t)
@@ -146,40 +135,42 @@ public class BindingAdapter<T extends BaseViewModel> extends BaseAdapter// T鏄�
 	private View createView(int itemLayout) throws NoSuchFieldException, NoSuchMethodException
 	{
 		View control = LayoutInflater.from(context).inflate(itemLayout, null);
-		bindTag(control);
+		binding.bindTag(control,modelClass);
 		return control;
 	}
 
-	private void bindTag(View control) throws NoSuchFieldException, NoSuchMethodException
-	{
-		ArrayList<View> controls = VisualHelper.getAllChildrenControls(control);
-		for (View controlItem : controls)
-		{
-			Object tag = controlItem.getTag();
-			if (!checkOriginalTag(tag)) continue;
-			bindTagSingleControl(controlItem, tag.toString());
-		}
-	}
+//	private void bindTag(View control) throws NoSuchFieldException, NoSuchMethodException
+//	{
+//		ArrayList<View> controls = VisualHelper.getAllChildrenControls(control);
+//		for (View controlItem : controls)
+//		{
+//			Object tag = controlItem.getTag();
+//			if (!checkOriginalTag(tag)) continue;
+//			bindTagSingleControl(controlItem, tag.toString());
+//		}
+//	}
 	
-	private boolean checkOriginalTag(Object tag)//鏄惁鏈夋晥鐨勬湭瑙ｆ瀽杩囩殑Tag
-	{
-		return tag != null && !(tag instanceof TagBinding);
-	}
-
-	private void bindTagSingleControl(View controlItem, String tag) throws NoSuchFieldException, NoSuchMethodException
-	{
-		TagBinding tagBinding = new TagBinding();
-		for (TagBindingParamText tagInfo : BindingAnalyst.loadBindingParamText(tag))
-			tagBinding.Operations.add(loadBindingParam(controlItem, tagInfo));
-		controlItem.setTag(tagBinding);		
-	}
-
-	private TagBindingParam loadBindingParam(View controlItem, TagBindingParamText tagInfo) throws NoSuchFieldException, NoSuchMethodException
-	{
-		TagBindingParam vmModel = new TagBindingParam();
-		vmModel.Field = modelClass.getField(tagInfo.FieldNameString);
-		vmModel.Method = ReflectHelper.getMethodByClassAndType(controlItem.getClass(), vmModel.Field.getType(), tagInfo.MethodNameString);
-		return vmModel;
-	}
+//	private boolean checkOriginalTag(Object tag)//鏄惁鏈夋晥鐨勬湭瑙ｆ瀽杩囩殑Tag
+//	{
+//		return tag != null && !(tag instanceof TagBinding);
+//	}
+//
+//	private void bindTagSingleControl(View controlItem, String tag) throws NoSuchFieldException, NoSuchMethodException
+//	{
+//		TagBinding tagBinding = new TagBinding();
+//		for (TagBindingParamText tagInfo : BindingAnalyst.loadBindingParamText(tag))
+//			tagBinding.Operations.put(tagInfo.FieldNameString,loadBindingHandler(controlItem, tagInfo));
+//		controlItem.setTag(tagBinding);		
+//	}
+//
+//	private PropertyChangedHandler loadBindingHandler(View controlItem, TagBindingParamText tagInfo) throws NoSuchFieldException, NoSuchMethodException
+//	{		
+//		PropertyChangedHandler handler = new PropertyChangedHandler();
+//		handler.PropertyName =  tagInfo.FieldNameString;
+//		handler.Field =modelClass.getField(tagInfo.FieldNameString);
+//		handler.Method = ReflectHelper.getMethodByClassAndType(controlItem.getClass(), handler.Field.getType(), tagInfo.MethodNameString);
+//		handler.View = controlItem;		
+//		return handler;
+//	}
 
 }
