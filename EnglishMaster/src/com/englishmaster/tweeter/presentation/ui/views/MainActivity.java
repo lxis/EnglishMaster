@@ -9,6 +9,7 @@ import com.englishmaster.tweeter.domain.model.Article;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,7 +28,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);//È¥µô±êÌâÀ¸
+        requestWindowFeature(Window.FEATURE_NO_TITLE);//È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         setContentView(R.layout.activity_main);
         listView = (ListView)findViewById(R.id.mainList);
         data = new ArrayList<Article>();
@@ -57,11 +58,12 @@ public class MainActivity extends Activity {
     	buttonGrade.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-				buttonGrade.setTextColor(Color.rgb(140,210,50));	
-				buttonLearn.setTextColor(Color.WHITE);
-				listLearn.setVisibility(8);
-				linearGrade.setVisibility(0);
+			public void onClick(View v) {											
+				startActivity(new Intent(MainActivity.this,BindingActivity.class));				
+//				buttonGrade.setTextColor(Color.rgb(140,210,50));	
+//				buttonLearn.setTextColor(Color.WHITE);
+//				listLearn.setVisibility(8);
+//				linearGrade.setVisibility(0);
 			}
 		});    			
 		
@@ -73,7 +75,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onScroll(AbsListView arg0, int arg1, int arg2, int totalCount) {
 				int lastPosition = listView.getLastVisiblePosition();				
-				if( totalCount <= lastPosition+1+preloadCount)		//ÏÖÔÚ×îÏÂµÄItemÊÇµÚ¼¸¸ö£¬		
+				if( totalCount <= lastPosition+1+preloadCount)		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½Itemï¿½ÇµÚ¼ï¿½ï¿½ï¿½ï¿½ï¿½		
 					LoadData();								
 			}
 		});
