@@ -24,25 +24,27 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f05000c;
-        public static final int buttonBad=0x7f05000b;
-        public static final int buttonGood=0x7f05000a;
+        public static final int action_settings=0x7f05000d;
+        public static final int buttonBad=0x7f05000c;
+        public static final int buttonGood=0x7f05000b;
         public static final int buttonGrade=0x7f050006;
         public static final int buttonLearn=0x7f050005;
         public static final int common_adapter_layout_id=0x7f050000;
         public static final int common_adapter_position=0x7f050001;
         public static final int linearGrade=0x7f050004;
-        public static final int linearTranslation=0x7f050008;
+        public static final int linearTranslation=0x7f050009;
+        public static final int listViewBinding=0x7f050007;
         public static final int mainLayout=0x7f050002;
         public static final int mainList=0x7f050003;
-        public static final int text1=0x7f050007;
-        public static final int textTranslation=0x7f050009;
+        public static final int text1=0x7f050008;
+        public static final int textTranslation=0x7f05000a;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int binding_activity=0x7f030001;
-        public static final int listitem_main_list=0x7f030002;
-        public static final int listitem_main_list_loading=0x7f030003;
+        public static final int binding_list_item=0x7f030002;
+        public static final int listitem_main_list=0x7f030003;
+        public static final int listitem_main_list_loading=0x7f030004;
     }
     public static final class menu {
         public static final int main=0x7f080000;

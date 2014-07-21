@@ -37,7 +37,8 @@ public class BindingAdapter<T extends BaseViewModel> extends BaseAdapter// TÈèÑÓ
 		this.data = data;
 		this.context = context;
 		this.layoutId = layoutId;
-		this.modelClass = modelClass;
+		if(data.size()!=0)
+			this.modelClass = data.get(0).getClass();
 		for (T item : data)
 			item.setContext(context);
 	}
