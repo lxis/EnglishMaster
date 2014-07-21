@@ -37,8 +37,7 @@ public class BindingAdapter<T extends BaseViewModel> extends BaseAdapter// T鏄�
 		this.data = data;
 		this.context = context;
 		this.layoutId = layoutId;
-		if(data.size()!=0)
-			this.modelClass = data.get(0).getClass();
+		this.modelClass = modelClass;
 		for (T item : data)
 			item.setContext(context);
 	}
@@ -161,7 +160,6 @@ public class BindingAdapter<T extends BaseViewModel> extends BaseAdapter// T鏄�
 			bindTagSingleControl(controlItem, tag.toString());
 		}
 	}
-
 	
 	private boolean checkOriginalTag(Object tag)//鏄惁鏈夋晥鐨勬湭瑙ｆ瀽杩囩殑Tag
 	{

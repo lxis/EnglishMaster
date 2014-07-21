@@ -33,8 +33,8 @@ public class BindingActivity extends Activity
 
 	private void InitData()
 	{
-		data.add(new BindItemViewModel("haha"));
-		data.add(new BindItemViewModel("hehe"));		
+		data.add(new BindItemViewModel("haha","Content"));
+		data.add(new BindItemViewModel("hehe","Content too"));		
 	}
 
 	private void InitControl()
