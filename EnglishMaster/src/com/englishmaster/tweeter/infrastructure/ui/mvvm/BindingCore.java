@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BaseViewModel;
+
 import android.view.View;
 
 public class BindingCore
@@ -70,7 +72,26 @@ public class BindingCore
 		            Entry<String, PropertyChangedHandler> e = entryKeyIterator.next();			            
 		            e.getValue().Handle(item);
 		 }
-		item.Handlers = operations;
+		mergeHandler(item, operations);
+	}
+
+	private void mergeHandler(BaseViewModel item, HashMap<String, PropertyChangedHandler> operations)
+	{
+		Iterator<Entry<String, PropertyChangedHandler>> entryKeyIterator = operations.entrySet().iterator();
+		       while (entryKeyIterator.hasNext()) {
+		            Entry<String, PropertyChangedHandler> e = entryKeyIterator.next();
+		            String key = e.getKey();
+		            if(item.Handlers.containsKey(key))
+		            {
+		        	    item.Handlers.get(key).add(e.getValue());
+		            }
+		            else
+		            {
+		        	    ArrayList<PropertyChangedHandler> handlers = new ArrayList<PropertyChangedHandler>();
+		        	    handlers.add(e.getValue());
+		        	    item.Handlers.put(key, handlers);		        	    
+		            }		            
+		 }
 	}
 	
 

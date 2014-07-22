@@ -24,6 +24,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" 
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dfdfdf"            
+            android:tag="Text=>Name" 
+            />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" 
+            />
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
