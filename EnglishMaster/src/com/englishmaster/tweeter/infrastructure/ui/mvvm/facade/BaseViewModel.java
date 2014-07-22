@@ -23,6 +23,8 @@ public class BaseViewModel
 	public void NotifyPropertyChanged(String property)
 	{
 		ArrayList<PropertyChangedHandler> handlers = Handlers.get(property);
+		if(handlers == null)
+			return;
 		for (PropertyChangedHandler handler : handlers)
 			try
 			{

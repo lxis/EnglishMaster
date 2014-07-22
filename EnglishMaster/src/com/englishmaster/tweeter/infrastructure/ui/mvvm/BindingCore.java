@@ -90,12 +90,12 @@ public class BindingCore
 		        	    ArrayList<PropertyChangedHandler> handlers = new ArrayList<PropertyChangedHandler>();
 		        	    handlers.add(e.getValue());
 		        	    item.Handlers.put(key, handlers);		        	    
-		            }		            
+		            }
 		 }
 	}
 	
 
-	private boolean checkBindedTag(Object tag)//鏄惁鏈夋晥鐨勮В鏋愯繃鐨凾ag
+	private boolean checkBindedTag(Object tag)
 	{
 		return tag != null && tag instanceof TagBinding;
 	}
