@@ -3,53 +3,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
     <LinearLayout
-        android:layout_width="match_parent" 
-        android:layout_height="wrap_content"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" 
-            />
+            android:layout_weight="1" />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="aaabbb"
             android:id="@+id/textViewTitle"
-            android:tag="Text=>Content" 
-            />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="Text=>Content"
+            android:text="aaabbb" />
+
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" 
-            />
+            android:layout_weight="1" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="dfdfdf"            
-            android:tag="Text=>Name" 
-            />
+            android:tag="Text=>Name"
+            android:text="dfdfdf" />
+
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" 
-            />
+            android:layout_weight="1" />
     </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="aaa"  
-        />
+        android:text="aaa" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="Click"        
-        />
+        android:onClick="Click" />
+
     <ListView
+        android:id="@+id/listViewBinding"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listViewBinding" 
-        ></ListView>
+        android:layout_height="wrap_content" >
+    </ListView>
 
 </LinearLayout>

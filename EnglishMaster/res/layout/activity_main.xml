@@ -1,88 +1,87 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/mainLayout"
     android:background="#e6e6e6"
-    >
-	<LinearLayout 
-	    android:orientation="vertical"
-	    android:layout_width="match_parent"
-	    android:layout_height="50dp"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:background="#3D4351"
-	    >
-	    <LinearLayout 
-	        android:layout_width="wrap_content"
-	        android:layout_height="match_parent"
-	        android:layout_gravity="center"
-	        android:orientation="horizontal"
-	        >	        	    
-	    <TextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="center" 
-	        android:text="英语大师"
-	        android:textColor="#FFFFFF"
-	        android:textSize="20dp"
-	        />
-	    </LinearLayout>
-	</LinearLayout>
-	<ListView 
-	    android:layout_width="match_parent"
-	    android:layout_marginLeft="10dp"
-	    android:layout_marginRight="10dp"
-	    android:layout_height="515dp"
-	    android:layout_gravity="center"
-	    android:scrollbars="vertical"
-	    android:id="@+id/mainList"
-	    android:divider="@null"
-	    ></ListView>
-	<LinearLayout
-	    android:layout_width="match_parent"
-	    android:layout_marginLeft="10dp"
-	    android:layout_marginRight="10dp"
-	    android:layout_height="515dp"
-	    android:layout_gravity="center"
-	    android:scrollbars="vertical"
-	    android:id="@+id/linearGrade"
-	    android:orientation="vertical"
-	     android:visibility="gone"
-	    >
-	    <TextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textSize="20dp"
-	        android:text="暂无成绩" 
-	        android:layout_marginTop="20dp"
-	        android:layout_gravity="center"
-	        
-	        />
-	</LinearLayout>
-	<LinearLayout
-	    android:orientation="horizontal"
-	    android:background="#3D4351"
-	    android:layout_width="match_parent"
-	    android:layout_height="50dp" 
-	    >
-	    <Button
-	        android:layout_width="wrap_content"
-	        android:layout_height="fill_parent"
-	        android:text="学习" 
-	        android:textColor="#8cd232"
-	        android:background="@null"
-	        android:layout_marginLeft="80dp"
-	        android:layout_marginRight="80dp"
-	        android:id="@+id/buttonLearn"
-	        />
-	    <Button
-	        android:layout_width="wrap_content"
-	        android:layout_height="fill_parent"
-	        android:text="成绩"
-	        android:textColor="#ffffff"
-	        android:background="@null"
-	        android:id="@+id/buttonGrade"
-	         />
-	</LinearLayout>
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="英语大师"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/mainList"
+        android:layout_width="match_parent"
+        android:layout_height="515dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:divider="@null"
+        android:scrollbars="vertical" >
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/linearGrade"
+        android:layout_width="match_parent"
+        android:layout_height="515dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="暂无成绩"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#3D4351"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/buttonLearn"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:background="@null"
+            android:text="学习"
+            android:textColor="#8cd232" />
+
+        <Button
+            android:id="@+id/buttonGrade"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="@null"
+            android:text="成绩"
+            android:textColor="#ffffff" />
+    </LinearLayout>
 
 </LinearLayout>
