@@ -46,7 +46,7 @@ public class ViewModelBinder
 	public static void Bind(BindViewModel viewModel, int layoutId, Activity bindingActivity)
 	{				
 		View rootView = LayoutInflater.from(bindingActivity).inflate(layoutId, null);
-		new ViewModelBinder().Bind(rootView , viewModel);
+		ViewModelBinder.Bind(rootView , viewModel);
 		bindingActivity.setContentView(rootView);				
 		
 	}
