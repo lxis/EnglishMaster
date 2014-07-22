@@ -1,10 +1,7 @@
 package com.englishmaster.tweeter.presentation.ui.viewmodels;
 
-import java.lang.reflect.InvocationTargetException;
-
 import android.view.View;
 import android.view.View.OnClickListener;
-
 import com.englishmaster.tweeter.infrastructure.common.common_simple_handlers.CommonSimpleHandler;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BaseViewModel;
 

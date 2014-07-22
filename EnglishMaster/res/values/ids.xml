@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>    
-    <item type="id" name="common_adapter_layout_id"></item>
-    <item type="id" name="common_adapter_position"></item>
-</resources>
+<resources>
 
+    <item name="common_adapter_layout_id" type="id"></item>
+    <item name="common_adapter_position" type="id"></item>
+
+</resources>

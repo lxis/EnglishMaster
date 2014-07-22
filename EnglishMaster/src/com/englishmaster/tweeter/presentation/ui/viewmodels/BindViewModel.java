@@ -1,7 +1,5 @@
 package com.englishmaster.tweeter.presentation.ui.viewmodels;
 
-import java.lang.reflect.InvocationTargetException;
-
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BaseViewModel;
 
 public class BindViewModel extends BaseViewModel
