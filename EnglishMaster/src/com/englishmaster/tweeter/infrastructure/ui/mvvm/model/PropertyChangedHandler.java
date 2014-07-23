@@ -12,20 +12,15 @@ public class PropertyChangedHandler
 {	
 	public Method Method;
 	
-	public ArrayList<Field> Fields = new ArrayList<Field>();	
+	public Field Field;	
 	
 	public android.view.View View;
 	
-	public String PropertyName;
-	
-	public Field getLastField()
-	{
-		return Fields.get(Fields.size()-1);
-	}
+	public String PropertyName;		
 	
 	public void Handle(Object item) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
 	{		
 		Object currentItem = item;		
-		Method.invoke(View, Fields.get(Fields.size()-1).get(currentItem));		
+		Method.invoke(View, Field.get(currentItem));		
 	};	
 }

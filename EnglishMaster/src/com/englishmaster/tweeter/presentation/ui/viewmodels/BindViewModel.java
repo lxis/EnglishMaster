@@ -4,6 +4,9 @@ import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BaseViewModel;
 
 public class BindViewModel extends BaseViewModel
 {
+	public BindInnerViewModel Inner = new BindInnerViewModel();
+
+	
 	public BindViewModel(String name, String content, String title)
 	{
 		this.Name = name;
@@ -21,7 +24,6 @@ public class BindViewModel extends BaseViewModel
 
 	public String Title;
 	public String Content;
-
 	public void SetContent(String content)
 	{
 		Content = content;
@@ -33,4 +35,6 @@ public class BindViewModel extends BaseViewModel
 		Title = title;
 		NotifyPropertyChanged("Title");
 	}
+	
+	
 }

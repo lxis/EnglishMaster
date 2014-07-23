@@ -11,6 +11,7 @@ import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BaseViewModel;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.model.PropertyChangedHandler;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.model.TagBinding;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.model.TagBindingAnalysisResult;
+import com.englishmaster.tweeter.infrastructure.ui.mvvm.model.TagBindingItem;
 
 import android.view.View;
 
@@ -41,27 +42,25 @@ public class BindingCore
 	{
 		TagBinding tagBinding = new TagBinding();
 		for (TagBindingAnalysisResult tagInfo : new BindingAnalyst().loadBindingParamText(tag))
-			tagBinding.Operations.put(tagInfo.FieldName,loadBindingHandler(controlItem, tagInfo,modelClass));
+			tagBinding.Items.add(loadTagBindingItem(controlItem, tagInfo,modelClass));
 		controlItem.setTag(tagBinding);		
 	}
 
-	private PropertyChangedHandler loadBindingHandler(View controlItem, TagBindingAnalysisResult tagInfo,Class modelClass) throws NoSuchFieldException, NoSuchMethodException
+	private TagBindingItem loadTagBindingItem(View controlItem, TagBindingAnalysisResult tagInfo,Class modelClass) throws NoSuchFieldException, NoSuchMethodException
 	{		
-		PropertyChangedHandler handler = new PropertyChangedHandler();
-		handler.PropertyName =  tagInfo.FieldName;
+		TagBindingItem bindingItem = new TagBindingItem();
+		bindingItem.PropertyName =  tagInfo.FieldName;
 		
 		Class currentClass = modelClass;
 		for(String fieldNameString:tagInfo.FieldNameStrings)
 		{
-			Field field = currentClass.getField(tagInfo.FieldNameStrings.get(0));
-			handler.Fields.add(field);
+			Field field = currentClass.getField(fieldNameString);
+			bindingItem.Fields.add(field);
 			currentClass = field.getType();
 		}
-		//for//循环取Field
-		
-		handler.Method = ReflectHelper.getMethodByClassAndType(controlItem.getClass(), handler.getLastField().getType(), tagInfo.MethodNameString);
-		handler.View = controlItem;		
-		return handler;
+		bindingItem.Method = ReflectHelper.getMethodByClassAndType(controlItem.getClass(), bindingItem.getLastField().getType(), tagInfo.MethodNameString);
+		bindingItem.View = controlItem;		
+		return bindingItem;
 	}
 	
 	////////////////
@@ -78,33 +77,17 @@ public class BindingCore
 	}
 	
 	public void bindDataSingleControl(View convertView, BaseViewModel item) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
-	{
-		HashMap<String, PropertyChangedHandler> operations = ((TagBinding)convertView.getTag()).Operations;
-		Iterator<Entry<String, PropertyChangedHandler>> entryKeyIterator = operations.entrySet().iterator();
-		       while (entryKeyIterator.hasNext()) {
-		            Entry<String, PropertyChangedHandler> e = entryKeyIterator.next();			            
-		            e.getValue().Handle(item);
-		 }
-		mergeHandler(item, operations);
-	}
-
-	private void mergeHandler(BaseViewModel item, HashMap<String, PropertyChangedHandler> operations)
-	{
-		Iterator<Entry<String, PropertyChangedHandler>> entryKeyIterator = operations.entrySet().iterator();
-		       while (entryKeyIterator.hasNext()) {
-		            Entry<String, PropertyChangedHandler> e = entryKeyIterator.next();
-		            String key = e.getKey();
-		            if(item.Handlers.containsKey(key))
-		            {
-		        	    item.Handlers.get(key).add(e.getValue());
-		            }
-		            else
-		            {
-		        	    ArrayList<PropertyChangedHandler> handlers = new ArrayList<PropertyChangedHandler>();
-		        	    handlers.add(e.getValue());
-		        	    item.Handlers.put(key, handlers);		        	    
-		            }
-		 }
+	{		
+		ArrayList<TagBindingItem> items = ((TagBinding)convertView.getTag()).Items;
+		for(TagBindingItem bindingItem: items)
+		{
+			BaseViewModel bindViewModel = item;
+			for(int i = 0;i< bindingItem.Fields.size()-1;i++)			
+				bindViewModel = (BaseViewModel) bindingItem.Fields.get(i).get(bindViewModel);
+			String propertyKey = bindingItem.PropertyName;
+			bindViewModel.AddHandler(bindingItem.PropertyName,bindingItem.Method,bindingItem.getLastField(), convertView);
+			bindViewModel.NotifyPropertyChanged(bindingItem.PropertyName);
+		}					
 	}
 	
 

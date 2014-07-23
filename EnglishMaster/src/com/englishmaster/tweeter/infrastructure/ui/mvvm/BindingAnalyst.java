@@ -78,9 +78,8 @@ public class BindingAnalyst
 	
 	private void analysisFields(char[] singnal,TagBindingAnalysisResult tagInfo)
 	{
-		char[] fieldNameText = new char[32];
 		ArrayList<char[]> fieldNames = new ArrayList<char[]>();
-		
+		ArrayList<Integer> fieldLengths = new ArrayList<Integer>(); 
 		boolean isContinueCurrentField =true; 
 		while(!isFinish && isContinueCurrentField)
 		{
@@ -94,29 +93,28 @@ public class BindingAnalyst
 				if (pos == singnal.length)
 				{
 					isFinish = true;		
-					fieldNameText = fieldName;			
+					fieldLengths.add(pos-currentPos2);
 					break;
 				}
 				if (singnal[pos] == ',')
 				{
 					isContinueCurrentField = false;
-					fieldNameText = fieldName;
+					fieldLengths.add(pos-currentPos2);
+					pos++;
 					break;					
 				}
 				if(singnal[pos] == '.')		
 				{
+					fieldLengths.add(pos-currentPos2);
 					pos++;
 					break;
 				}
 			}			
 		}
 
-		int fieldLength = pos - currentPos;
-		pos++;				
-		
-		tagInfo.FieldName = new String(fieldNameText, 0, fieldLength);		
+		for(int i = 0;i<fieldNames.size();i++)			
+			tagInfo.FieldNameStrings.add(new String(fieldNames.get(i), 0, fieldLengths.get(i)));	
 
-		for(char[] currentfieldName:fieldNames)			
-			tagInfo.FieldNameStrings.add(new String(currentfieldName, 0, fieldLength));
+		tagInfo.FieldName = tagInfo.FieldNameStrings.get(tagInfo.FieldNameStrings.size()-1);		
 	}
 }

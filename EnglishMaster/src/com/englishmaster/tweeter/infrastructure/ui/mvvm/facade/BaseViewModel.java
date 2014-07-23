@@ -1,6 +1,8 @@
 package com.englishmaster.tweeter.infrastructure.ui.mvvm.facade;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,6 +21,26 @@ public class BaseViewModel
 	}
 
 	public HashMap<String, ArrayList<PropertyChangedHandler>> Handlers = new HashMap<String, ArrayList<PropertyChangedHandler>>();
+	
+	public void AddHandler(String PropertyName,Method method,Field Field,android.view.View View)
+	{
+		PropertyChangedHandler handler = new PropertyChangedHandler();
+		handler.Method = method;
+		handler.Field = Field;		
+		handler.View = View;
+		handler.PropertyName = PropertyName;					
+		if(Handlers.containsKey(PropertyName))
+		{
+			Handlers.get(PropertyName).add(handler);
+		}
+		else
+		{
+			ArrayList<PropertyChangedHandler> handlers = new ArrayList<PropertyChangedHandler>();
+			handlers.add(handler);
+			Handlers.put(PropertyName, handlers);
+		}
+			
+	}
 
 	public void NotifyPropertyChanged(String property)
 	{
