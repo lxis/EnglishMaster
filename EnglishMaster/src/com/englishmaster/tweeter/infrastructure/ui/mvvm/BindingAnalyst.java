@@ -2,6 +2,8 @@ package com.englishmaster.tweeter.infrastructure.ui.mvvm;
 
 import java.util.ArrayList;
 
+import com.englishmaster.tweeter.infrastructure.ui.mvvm.model.TagBindingAnalysisResult;
+
 public class BindingAnalyst
 {
 	Boolean isFinish = false;
@@ -10,13 +12,13 @@ public class BindingAnalyst
 	
 	Integer currentPos = 0;
 	
-	ArrayList<TagBindingParamText> list = new ArrayList<TagBindingParamText>();
+	ArrayList<TagBindingAnalysisResult> list = new ArrayList<TagBindingAnalysisResult>();
 	
-	public ArrayList<TagBindingParamText> loadBindingParamText(String tag)
+	public ArrayList<TagBindingAnalysisResult> loadBindingParamText(String tag)
 	{					
 		while (!isFinish)
 		{
-			TagBindingParamText tagInfo = new TagBindingParamText();
+			TagBindingAnalysisResult tagInfo = new TagBindingAnalysisResult();
 			char[] methodName = new char[32];
 			char[] singnal = tag.toCharArray();
 
@@ -74,7 +76,7 @@ public class BindingAnalyst
 		return methodLength;
 	}
 	
-	private void analysisFields(char[] singnal,TagBindingParamText tagInfo)
+	private void analysisFields(char[] singnal,TagBindingAnalysisResult tagInfo)
 	{
 		char[] fieldNameText = new char[32];
 		ArrayList<char[]> fieldNames = new ArrayList<char[]>();
@@ -88,21 +90,21 @@ public class BindingAnalyst
 			while (true)
 			{
 				fieldName[pos - currentPos2] = singnal[pos];
-				fieldNameText[pos-currentPos] = singnal[pos];
 				pos++;
 				if (pos == singnal.length)
 				{
-					isFinish = true;					
+					isFinish = true;		
+					fieldNameText = fieldName;			
 					break;
 				}
 				if (singnal[pos] == ',')
 				{
 					isContinueCurrentField = false;
+					fieldNameText = fieldName;
 					break;					
 				}
 				if(singnal[pos] == '.')		
 				{
-					fieldNameText[pos-currentPos] = singnal[pos];
 					pos++;
 					break;
 				}

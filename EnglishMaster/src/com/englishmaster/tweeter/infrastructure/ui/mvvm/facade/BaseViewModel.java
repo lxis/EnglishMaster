@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.englishmaster.tweeter.infrastructure.common.GlobalUncaughtExceptionHandler;
-import com.englishmaster.tweeter.infrastructure.ui.mvvm.PropertyChangedHandler;
+import com.englishmaster.tweeter.infrastructure.ui.mvvm.model.PropertyChangedHandler;
 
 import android.content.Context;
 

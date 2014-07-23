@@ -8,6 +8,9 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BaseViewModel;
+import com.englishmaster.tweeter.infrastructure.ui.mvvm.model.PropertyChangedHandler;
+import com.englishmaster.tweeter.infrastructure.ui.mvvm.model.TagBinding;
+import com.englishmaster.tweeter.infrastructure.ui.mvvm.model.TagBindingAnalysisResult;
 
 import android.view.View;
 
@@ -37,12 +40,12 @@ public class BindingCore
 	private void bindTagSingleControl(View controlItem, String tag,Class modelClass) throws NoSuchFieldException, NoSuchMethodException
 	{
 		TagBinding tagBinding = new TagBinding();
-		for (TagBindingParamText tagInfo : new BindingAnalyst().loadBindingParamText(tag))
+		for (TagBindingAnalysisResult tagInfo : new BindingAnalyst().loadBindingParamText(tag))
 			tagBinding.Operations.put(tagInfo.FieldName,loadBindingHandler(controlItem, tagInfo,modelClass));
 		controlItem.setTag(tagBinding);		
 	}
 
-	private PropertyChangedHandler loadBindingHandler(View controlItem, TagBindingParamText tagInfo,Class modelClass) throws NoSuchFieldException, NoSuchMethodException
+	private PropertyChangedHandler loadBindingHandler(View controlItem, TagBindingAnalysisResult tagInfo,Class modelClass) throws NoSuchFieldException, NoSuchMethodException
 	{		
 		PropertyChangedHandler handler = new PropertyChangedHandler();
 		handler.PropertyName =  tagInfo.FieldName;
