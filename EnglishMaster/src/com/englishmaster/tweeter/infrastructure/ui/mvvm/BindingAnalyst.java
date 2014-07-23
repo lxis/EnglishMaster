@@ -8,17 +8,18 @@ public class BindingAnalyst
 	public static ArrayList<TagBindingParamText> loadBindingParamText(String tag)
 	{
 		ArrayList<TagBindingParamText> list = new ArrayList<TagBindingParamText>();
-		boolean isFinish = false;
-		int pos = 0;
+		Boolean isFinish = false;
+		Integer pos = 0;
 
 		while (!isFinish)
 		{
+			TagBindingParamText tagInfo = new TagBindingParamText();
 			char[] methodName = new char[32];
-			ArrayList<char[]> filedNames = new ArrayList<char[]>();
+			ArrayList<char[]> fieldNames = new ArrayList<char[]>();
 			char[] fieldNameText = new char[32];
 			char[] singnal = tag.toCharArray();
 
-			int currentPos = pos;
+			Integer currentPos = pos;
 			while (true)
 			{
 				char currentChar = singnal[pos];
@@ -32,11 +33,14 @@ public class BindingAnalyst
 			pos += 2;
 			currentPos = pos;
 			
-			char[] filedName = new char[32];
-			filedNames.add(filedName);
+			//开始搞field
+			//返回值是：,isFinish
+			//参数是：pos,currentPos,singnal,fieldNameText,filedNames
+			char[] fieldName = new char[32];
+			fieldNames.add(fieldName);
 			while (true)
 			{
-				filedName[pos - currentPos] = singnal[pos];
+				fieldName[pos - currentPos] = singnal[pos];
 				fieldNameText[pos-currentPos] = singnal[pos];
 				pos++;
 				if (pos == singnal.length)
@@ -48,15 +52,19 @@ public class BindingAnalyst
 			}
 
 			int fieldLength = pos - currentPos;
-			pos++;						
+			pos++;				
+			
+			tagInfo.FieldName = new String(fieldNameText, 0, fieldLength);
+			//field搞完
+			
 			
 			methodLength = addOmitPart(methodName, methodLength);
 
-			TagBindingParamText tagInfo = new TagBindingParamText();
+			
 			tagInfo.MethodNameString = new String(methodName, 0, methodLength);
-			for(char[] fieldName:filedNames)			
-				tagInfo.FieldNameStrings.add(new String(fieldName, 0, fieldLength));
-			tagInfo.FieldName = new String(fieldNameText, 0, fieldLength);
+			for(char[] currentfieldName:fieldNames)			
+				tagInfo.FieldNameStrings.add(new String(currentfieldName, 0, fieldLength));
+			
 			list.add(tagInfo);
 		}
 		return list;
