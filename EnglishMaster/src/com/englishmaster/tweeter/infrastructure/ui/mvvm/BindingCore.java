@@ -37,7 +37,7 @@ public class BindingCore
 	private void bindTagSingleControl(View controlItem, String tag,Class modelClass) throws NoSuchFieldException, NoSuchMethodException
 	{
 		TagBinding tagBinding = new TagBinding();
-		for (TagBindingParamText tagInfo : BindingAnalyst.loadBindingParamText(tag))
+		for (TagBindingParamText tagInfo : new BindingAnalyst().loadBindingParamText(tag))
 			tagBinding.Operations.put(tagInfo.FieldName,loadBindingHandler(controlItem, tagInfo,modelClass));
 		controlItem.setTag(tagBinding);		
 	}

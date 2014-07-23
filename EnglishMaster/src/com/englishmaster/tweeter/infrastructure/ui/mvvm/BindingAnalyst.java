@@ -4,22 +4,23 @@ import java.util.ArrayList;
 
 public class BindingAnalyst
 {
-	//铏界劧閫昏緫鍜岀畻娉曞彲鑳芥瘮杈冮夯鐑︼紝浣嗕笟鍔″惈涔夋瘮杈冪畝鍗曪紝鎶�湳鎵嬫姣旇緝鐩存帴銆傚氨鏄瓧绗︿覆瑙ｆ瀽锛屼粠layout鐨則ag涓垎鏋愬嚭鎯宠鐨勪笟鍔℃ā鍨嬨�
-	public static ArrayList<TagBindingParamText> loadBindingParamText(String tag)
-	{
-		ArrayList<TagBindingParamText> list = new ArrayList<TagBindingParamText>();
-		Boolean isFinish = false;
-		Integer pos = 0;
-
+	Boolean isFinish = false;
+	
+	Integer pos = 0;
+	
+	Integer currentPos = 0;
+	
+	ArrayList<TagBindingParamText> list = new ArrayList<TagBindingParamText>();
+	
+	public ArrayList<TagBindingParamText> loadBindingParamText(String tag)
+	{					
 		while (!isFinish)
 		{
 			TagBindingParamText tagInfo = new TagBindingParamText();
 			char[] methodName = new char[32];
-			ArrayList<char[]> fieldNames = new ArrayList<char[]>();
-			char[] fieldNameText = new char[32];
 			char[] singnal = tag.toCharArray();
 
-			Integer currentPos = pos;
+			currentPos = pos;
 			while (true)
 			{
 				char currentChar = singnal[pos];
@@ -34,27 +35,7 @@ public class BindingAnalyst
 			currentPos = pos;
 			
 			//开始搞field
-			//返回值是：,isFinish
-			//参数是：pos,currentPos,singnal,fieldNameText,filedNames
-			char[] fieldName = new char[32];
-			fieldNames.add(fieldName);
-			while (true)
-			{
-				fieldName[pos - currentPos] = singnal[pos];
-				fieldNameText[pos-currentPos] = singnal[pos];
-				pos++;
-				if (pos == singnal.length)
-				{
-					isFinish = true;
-					break;
-				}
-				if (singnal[pos] == ',') break;
-			}
-
-			int fieldLength = pos - currentPos;
-			pos++;				
-			
-			tagInfo.FieldName = new String(fieldNameText, 0, fieldLength);
+			analysisFields(singnal, tagInfo);
 			//field搞完
 			
 			
@@ -62,8 +43,6 @@ public class BindingAnalyst
 
 			
 			tagInfo.MethodNameString = new String(methodName, 0, methodLength);
-			for(char[] currentfieldName:fieldNames)			
-				tagInfo.FieldNameStrings.add(new String(currentfieldName, 0, fieldLength));
 			
 			list.add(tagInfo);
 		}
@@ -71,7 +50,7 @@ public class BindingAnalyst
 	}
 
 
-	private static int addOmitPart(char[] methodName, int methodLength)
+	private int addOmitPart(char[] methodName, int methodLength)
 	{
 		if(Character.isUpperCase(methodName[3]))
 		{
@@ -93,5 +72,33 @@ public class BindingAnalyst
 			methodLength += 8;
 		}
 		return methodLength;
+	}
+	
+	private void analysisFields(char[] singnal,TagBindingParamText tagInfo)
+	{
+		char[] fieldNameText = new char[32];
+		ArrayList<char[]> fieldNames = new ArrayList<char[]>();
+		char[] fieldName = new char[32];
+		fieldNames.add(fieldName);
+		while (true)
+		{
+			fieldName[pos - currentPos] = singnal[pos];
+			fieldNameText[pos-currentPos] = singnal[pos];
+			pos++;
+			if (pos == singnal.length)
+			{
+				isFinish = true;
+				break;
+			}
+			if (singnal[pos] == ',') break;
+		}
+
+		int fieldLength = pos - currentPos;
+		pos++;				
+		
+		tagInfo.FieldName = new String(fieldNameText, 0, fieldLength);		
+
+		for(char[] currentfieldName:fieldNames)			
+			tagInfo.FieldNameStrings.add(new String(currentfieldName, 0, fieldLength));
 	}
 }
