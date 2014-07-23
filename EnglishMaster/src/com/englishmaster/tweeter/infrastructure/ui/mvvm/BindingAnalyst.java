@@ -78,19 +78,35 @@ public class BindingAnalyst
 	{
 		char[] fieldNameText = new char[32];
 		ArrayList<char[]> fieldNames = new ArrayList<char[]>();
-		char[] fieldName = new char[32];
-		fieldNames.add(fieldName);
-		while (true)
+		
+		boolean isContinueCurrentField =true; 
+		while(!isFinish && isContinueCurrentField)
 		{
-			fieldName[pos - currentPos] = singnal[pos];
-			fieldNameText[pos-currentPos] = singnal[pos];
-			pos++;
-			if (pos == singnal.length)
+			char[] fieldName = new char[32];
+			fieldNames.add(fieldName);
+			int currentPos2 = pos;//这个比较烂
+			while (true)
 			{
-				isFinish = true;
-				break;
-			}
-			if (singnal[pos] == ',') break;
+				fieldName[pos - currentPos2] = singnal[pos];
+				fieldNameText[pos-currentPos] = singnal[pos];
+				pos++;
+				if (pos == singnal.length)
+				{
+					isFinish = true;					
+					break;
+				}
+				if (singnal[pos] == ',')
+				{
+					isContinueCurrentField = false;
+					break;					
+				}
+				if(singnal[pos] == '.')		
+				{
+					fieldNameText[pos-currentPos] = singnal[pos];
+					pos++;
+					break;
+				}
+			}			
 		}
 
 		int fieldLength = pos - currentPos;
