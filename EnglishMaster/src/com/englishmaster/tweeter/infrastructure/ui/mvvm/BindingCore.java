@@ -1,5 +1,6 @@
 package com.englishmaster.tweeter.infrastructure.ui.mvvm;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,16 +38,25 @@ public class BindingCore
 	{
 		TagBinding tagBinding = new TagBinding();
 		for (TagBindingParamText tagInfo : BindingAnalyst.loadBindingParamText(tag))
-			tagBinding.Operations.put(tagInfo.FieldNameString,loadBindingHandler(controlItem, tagInfo,modelClass));
+			tagBinding.Operations.put(tagInfo.FieldName,loadBindingHandler(controlItem, tagInfo,modelClass));
 		controlItem.setTag(tagBinding);		
 	}
 
 	private PropertyChangedHandler loadBindingHandler(View controlItem, TagBindingParamText tagInfo,Class modelClass) throws NoSuchFieldException, NoSuchMethodException
 	{		
 		PropertyChangedHandler handler = new PropertyChangedHandler();
-		handler.PropertyName =  tagInfo.FieldNameString;
-		handler.Field =modelClass.getField(tagInfo.FieldNameString);
-		handler.Method = ReflectHelper.getMethodByClassAndType(controlItem.getClass(), handler.Field.getType(), tagInfo.MethodNameString);
+		handler.PropertyName =  tagInfo.FieldName;
+		
+		Class currentClass = modelClass;
+		for(String fieldNameString:tagInfo.FieldNameStrings)
+		{
+			Field field = currentClass.getField(tagInfo.FieldNameStrings.get(0));
+			handler.Fields.add(field);
+			currentClass = field.getType();
+		}
+		//for//循环取Field
+		
+		handler.Method = ReflectHelper.getMethodByClassAndType(controlItem.getClass(), handler.getLastField().getType(), tagInfo.MethodNameString);
 		handler.View = controlItem;		
 		return handler;
 	}

@@ -14,7 +14,8 @@ public class BindingAnalyst
 		while (!isFinish)
 		{
 			char[] methodName = new char[32];
-			char[] filedName = new char[32];
+			ArrayList<char[]> filedNames = new ArrayList<char[]>();
+			char[] fieldNameText = new char[32];
 			char[] singnal = tag.toCharArray();
 
 			int currentPos = pos;
@@ -30,9 +31,13 @@ public class BindingAnalyst
 			int methodLength = pos - currentPos + 3;// Q:3
 			pos += 2;
 			currentPos = pos;
+			
+			char[] filedName = new char[32];
+			filedNames.add(filedName);
 			while (true)
 			{
 				filedName[pos - currentPos] = singnal[pos];
+				fieldNameText[pos-currentPos] = singnal[pos];
 				pos++;
 				if (pos == singnal.length)
 				{
@@ -49,7 +54,9 @@ public class BindingAnalyst
 
 			TagBindingParamText tagInfo = new TagBindingParamText();
 			tagInfo.MethodNameString = new String(methodName, 0, methodLength);
-			tagInfo.FieldNameString = new String(filedName, 0, fieldLength);
+			for(char[] fieldName:filedNames)			
+				tagInfo.FieldNameStrings.add(new String(fieldName, 0, fieldLength));
+			tagInfo.FieldName = new String(fieldNameText, 0, fieldLength);
 			list.add(tagInfo);
 		}
 		return list;
