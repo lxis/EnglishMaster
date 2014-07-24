@@ -31,16 +31,41 @@
     </LinearLayout>
     
         <ListView
-        android:id="@+id/mainList"
+        android:id="@+id/newMainList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_gravity="center"
         android:layout_weight="1"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:divider="@null"
-        android:scrollbars="vertical" >
+        android:scrollbars="vertical"
+        android:tag="Visibility=>LearnViewVisibility" 
+        >
     </ListView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"        
+        android:orientation="vertical"
+        android:tag="Visibility=>GradeViewVisibility"
+        >
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"         
+        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="暂无"
+        />    
+      <Space
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1" 
+        />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -53,7 +78,7 @@
             android:layout_weight="1"
             android:textColor="#8cd232" 
             android:background="@null"
-            android:tag="Text=>BottomButtonOneText,TextColor=>BottomButtonOneTextColor"
+            android:tag="Text=>BottomButtonOneText,TextColor=>BottomButtonOneTextColor,OnClick=>LearnCommand"
             />
         <Button
             android:layout_height="match_parent"
@@ -61,7 +86,7 @@
             android:layout_weight="1"
             android:textColor="#ffffff"  
             android:background="@null"
-            android:tag="Text=>BottomButtonTwoText,TextColor=>BottomButtonTwoTextColor"
+            android:tag="Text=>BottomButtonTwoText,TextColor=>BottomButtonTwoTextColor,OnClick=>GradeCommand"
             />        
     </LinearLayout>       
 </LinearLayout>
