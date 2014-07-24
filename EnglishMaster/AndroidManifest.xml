@@ -27,6 +27,9 @@
         <activity
             android:name="com.englishmaster.tweeter.presentation.ui.views.BindingActivity"
             android:screenOrientation="portrait" />
+                <activity
+            android:name="com.englishmaster.tweeter.presentation.ui.views.NewMainActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

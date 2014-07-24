@@ -43,7 +43,7 @@ public class ViewModelBinder
 			GlobalUncaughtExceptionHandler.AddUnhandledException(e);
 		}
 	}
-	public static void Bind(BindViewModel viewModel, int layoutId, Activity bindingActivity)
+	public static void Bind(BaseViewModel viewModel, int layoutId, Activity bindingActivity)
 	{				
 		View rootView = LayoutInflater.from(bindingActivity).inflate(layoutId, null);
 		ViewModelBinder.Bind(rootView , viewModel);

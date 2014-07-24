@@ -20,7 +20,6 @@ public class VisualHelper
 		controls.add(view);
 	}
 
-	//鎵�湁瀛愭帶浠讹紝涔熷寘鍚嚜宸�
 	public static  ArrayList<View> getAllChildrenControls(View view)
 	{
 		ArrayList<View> controls = new ArrayList<View>();

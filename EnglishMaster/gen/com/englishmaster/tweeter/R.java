@@ -47,6 +47,7 @@ public final class R {
         public static final int binding_list_item=0x7f030002;
         public static final int listitem_main_list=0x7f030003;
         public static final int listitem_main_list_loading=0x7f030004;
+        public static final int new_main_activity=0x7f030005;
     }
     public static final class menu {
         public static final int main=0x7f080000;
