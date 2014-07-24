@@ -22,7 +22,7 @@ public class MyURLSpan extends ClickableSpan {
     private Context context;
     private View currentView;
 
-    MyURLSpan(String url,Context context,View currentView) {
+    public MyURLSpan(String url,Context context,View currentView) {
             mUrl = url;
             this.context = context;
             this.currentView = currentView;
@@ -31,7 +31,7 @@ public class MyURLSpan extends ClickableSpan {
     @Override
     public void updateDrawState(TextPaint ds) {
         ds.setColor(ds.linkColor);
-        ds.setUnderlineText(false); //<span style="color: red;">//È¥µôÏÂ»®Ïß</span>
+        ds.setUnderlineText(false); //<span style="color: red;">//È¥ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½</span>
     }
 
     
@@ -49,7 +49,7 @@ public class MyURLSpan extends ClickableSpan {
     			}
     			catch(IllegalArgumentException e)
     			{
-    				return "ÇëÇó×Ö·ûÓÐÎó";     
+    				return "ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½";     
     			}
     		}
     		@Override

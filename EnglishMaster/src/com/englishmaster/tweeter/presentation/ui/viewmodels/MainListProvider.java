@@ -6,8 +6,8 @@ import android.os.AsyncTask;
 
 import com.englishmaster.tweeter.data.server.services.TweeterService;
 import com.englishmaster.tweeter.domain.model.Article;
+import com.englishmaster.tweeter.presentation.ui.adapters.MainListAdapter;
 import com.englishmaster.tweeter.presentation.ui.views.MainActivity;
-import com.englishmaster.tweeter.presentation.ui.views.MainListAdapter;
 
 public class MainListProvider
 {

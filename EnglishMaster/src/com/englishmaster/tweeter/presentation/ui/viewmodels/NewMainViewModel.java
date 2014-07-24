@@ -84,7 +84,7 @@ public class NewMainViewModel extends BaseViewModel
 	{
 		this.LearnCommand = l;
 		NotifyPropertyChanged("LearnCommand");
-	}
+	}	
 
 	public void SetGradeCommand(OnClickListener l)
 	{

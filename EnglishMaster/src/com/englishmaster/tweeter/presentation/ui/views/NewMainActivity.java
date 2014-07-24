@@ -7,6 +7,7 @@ import com.englishmaster.tweeter.domain.model.Article;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BaseViewModel;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BindingAdapter;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.ViewModelBinder;
+import com.englishmaster.tweeter.presentation.ui.adapters.MainListAdapter;
 import com.englishmaster.tweeter.presentation.ui.viewmodels.NewMainViewModel;
 
 import android.app.Activity;
@@ -34,12 +35,12 @@ public class NewMainActivity extends Activity
 		ViewModelBinder.Bind(viewModel, R.layout.new_main_activity, NewMainActivity.this);
 		listView = (ListView) findViewById(R.id.newMainList);
 		initViews();
-		BindList();
+		bindList();
 	}
 
 	Boolean isLoading = false;
 
-	private void BindList()
+	private void bindList()
 	{
 		if (isLoading) return;
 		isLoading = true;
@@ -88,7 +89,7 @@ public class NewMainActivity extends Activity
 			public void onScroll(AbsListView arg0, int arg1, int arg2, int totalCount)
 			{
 				int lastPosition = listView.getLastVisiblePosition();
-				if (viewModel.IsNeedLoadData(totalCount, lastPosition)) BindList();
+				if (viewModel.IsNeedLoadData(totalCount, lastPosition)) bindList();
 			}
 		});
 	}

@@ -6,6 +6,7 @@ import com.englishmaster.tweeter.R;
 import com.englishmaster.tweeter.data.server.services.TweeterService;
 import com.englishmaster.tweeter.domain.model.Article;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.ViewModelBinder;
+import com.englishmaster.tweeter.presentation.ui.adapters.MainListAdapter;
 import com.englishmaster.tweeter.presentation.ui.viewmodels.MainViewModel;
 
 import android.os.AsyncTask;
