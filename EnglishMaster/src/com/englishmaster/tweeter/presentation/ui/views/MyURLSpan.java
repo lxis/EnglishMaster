@@ -61,7 +61,6 @@ public class MyURLSpan extends ClickableSpan
 				{
 					viewModel.SetTranslationVisibility(View.GONE);
 				}
-
 			}
 		}.execute(url);
 

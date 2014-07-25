@@ -1,15 +1,9 @@
 package com.englishmaster.tweeter.infrastructure.ui.mvvm.facade;
 
 import java.lang.reflect.InvocationTargetException;
-
-import com.englishmaster.tweeter.R;
 import com.englishmaster.tweeter.infrastructure.common.GlobalUncaughtExceptionHandler;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.BindingCore;
-import com.englishmaster.tweeter.presentation.ui.viewmodels.BindViewModel;
-import com.englishmaster.tweeter.presentation.ui.views.BindingActivity;
-
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 

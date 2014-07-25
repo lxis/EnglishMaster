@@ -1,26 +1,17 @@
 package com.englishmaster.tweeter.presentation.ui.views;
 
 import java.util.ArrayList;
-
 import com.englishmaster.tweeter.R;
-import com.englishmaster.tweeter.domain.model.Article;
-import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BaseViewModel;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BindingAdapter;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.ViewModelBinder;
-import com.englishmaster.tweeter.presentation.ui.adapters.MainListAdapter;
 import com.englishmaster.tweeter.presentation.ui.viewmodels.NewMainItemViewModel;
 import com.englishmaster.tweeter.presentation.ui.viewmodels.NewMainViewModel;
-
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Color;
-import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.AbsListView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AbsListView.OnScrollListener;
 
 public class NewMainActivity extends Activity
