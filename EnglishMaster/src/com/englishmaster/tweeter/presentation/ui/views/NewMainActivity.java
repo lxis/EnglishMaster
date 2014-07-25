@@ -1,12 +1,25 @@
 package com.englishmaster.tweeter.presentation.ui.views;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
+
 import com.englishmaster.tweeter.R;
+import com.englishmaster.tweeter.data.storage.StorageSetting;
+import com.englishmaster.tweeter.domain.services.settings.ShopCar;
+import com.englishmaster.tweeter.domain.services.settings.ShopCarSetting;
+import com.englishmaster.tweeter.infrastructure.common.common_simple_handlers.CommonSimpleHandlerGenic;
+import com.englishmaster.tweeter.infrastructure.ui.BaseActivity;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BindingAdapter;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.ViewModelBinder;
+import com.englishmaster.tweeter.presentation.ui.messages.MainPageNavigateParam;
 import com.englishmaster.tweeter.presentation.ui.viewmodels.NewMainItemViewModel;
 import com.englishmaster.tweeter.presentation.ui.viewmodels.NewMainViewModel;
+import com.google.gson.Gson;
+
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Window;
@@ -14,7 +27,7 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.AbsListView.OnScrollListener;
 
-public class NewMainActivity extends Activity
+public class NewMainActivity extends BaseActivity
 {
 	NewMainViewModel viewModel = new NewMainViewModel();
 	ListView listView;
@@ -28,8 +41,26 @@ public class NewMainActivity extends Activity
 		listView = (ListView) findViewById(R.id.newMainList);
 		initViews();
 		bindList();
+		
+		try
+		{
+			ShopCarSetting shopCar =StorageSetting.Get(ShopCarSetting.class);				
+			shopCar.ShopCars.add(new ShopCar(1,"好东西",100));
+			StorageSetting.Set(shopCar);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		
+		navigate(NewMainActivity.class, new MainPageNavigateParam("tititle"));
+		
+		MainPageNavigateParam param = getParam(MainPageNavigateParam.class);
+		
+		setResult(new MainPageNavigateParam("aa"));					
 	}
-
+	
 	Boolean isLoading = false;
 
 	private void bindList()

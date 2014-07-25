@@ -1,6 +1,6 @@
 package com.englishmaster.tweeter.data.storage;
 
-public class temp
+public class StorageProvider
 {
 
 }
