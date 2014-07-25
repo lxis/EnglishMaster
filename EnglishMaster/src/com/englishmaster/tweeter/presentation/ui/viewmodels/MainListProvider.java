@@ -15,8 +15,7 @@ public class MainListProvider
 
 	public MainListProvider()
 	{
-		data = new ArrayList<Article>();
-		data.add(null);
+		data = new ArrayList<Article>();		
 	}
 
 	private int preloadCount = 1;
@@ -32,7 +31,7 @@ public class MainListProvider
 	public ArrayList<Article> LoadData()
 	{
 		ArrayList<Article> articles = new TweeterService().GetTweeters(lastIndex, singleCount);
-		data.addAll(data.size() - 1, articles);
+		data = articles;
 		lastIndex = lastIndex + singleCount;
 		return data;
 	}

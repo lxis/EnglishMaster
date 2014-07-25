@@ -85,7 +85,7 @@ public class NewMainItemViewModel extends BaseViewModel
 			words[i] = words[i];
 		String clickText = "";
 		for (String word : words)
-			clickText += "<a style=\"text-decoration:none\" href=\"" + word + "\">" + word + "</a>";
+			clickText += "<a style=\"text-decoration:none\" href=\"" + word + "\">" + word + "</a> ";
 		SetShowContent(Html.fromHtml("<string name=\"hello\">" + clickText + "</string>"));
 
 		SetMovementMethod(LinkMovementMethod.getInstance());		

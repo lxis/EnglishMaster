@@ -75,8 +75,6 @@ public class NewMainViewModel extends BaseViewModel
 		ArrayList<NewMainItemViewModel> viewModels = new ArrayList<NewMainItemViewModel>();
 		for(Article article : listProvider.LoadData())
 		{
-			if(article == null)
-				continue;
 			NewMainItemViewModel viewModel = new NewMainItemViewModel();			
 			viewModel.SetIsBad(article.IsBad);
 			viewModel.SetIsGood(article.IsGood);

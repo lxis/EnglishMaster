@@ -20,13 +20,12 @@ import android.widget.Toast;
 
 public class MyURLSpan extends ClickableSpan
 {
-	private String mUrl;
-	private Context context;
+	private String url;
 	private NewMainItemViewModel viewModel;
 
-	public MyURLSpan(String url, Context context,NewMainItemViewModel viewModel)
+	public MyURLSpan(String url, Context context, NewMainItemViewModel viewModel)
 	{
-		mUrl = url;
+		this.url = url;
 		this.viewModel = viewModel;
 	}
 
@@ -34,8 +33,7 @@ public class MyURLSpan extends ClickableSpan
 	public void updateDrawState(TextPaint ds)
 	{
 		ds.setColor(ds.linkColor);
-		ds.setUnderlineText(false); // <span
-						// style="color: red;">//ȥ���»���</span>
+		ds.setUnderlineText(false);
 	}
 
 	@Override
@@ -46,27 +44,17 @@ public class MyURLSpan extends ClickableSpan
 			@Override
 			protected String doInBackground(String... arg0)
 			{
-				// TODO Auto-generated method stub
-				try
-				{
-					return new YoudaoService().GetWord(mUrl);
-				}
-				catch (IllegalArgumentException e)
-				{
-					return "�����ַ�����";
-				}
+				return new YoudaoService().GetWord(url);
 			}
 
 			@Override
 			protected void onPostExecute(String result)
 			{
-				// TODO Auto-generated method stub
 				super.onPostExecute(result);
-				
-				
-				if (!result.equals(viewModel.TranslationText) ||viewModel.TranslationVisibility == View.GONE)
+
+				if (!result.equals(viewModel.TranslationText) || viewModel.TranslationVisibility == View.GONE)
 				{
-					viewModel.SetTranslationText(result);					
+					viewModel.SetTranslationText(result);
 					viewModel.SetTranslationVisibility(View.VISIBLE);
 				}
 				else
@@ -75,9 +63,7 @@ public class MyURLSpan extends ClickableSpan
 				}
 
 			}
-		}.execute(mUrl);
+		}.execute(url);
 
-		// TODO Auto-generated method stub
-		// Toast.makeText(mUrl).show();
 	}
 }

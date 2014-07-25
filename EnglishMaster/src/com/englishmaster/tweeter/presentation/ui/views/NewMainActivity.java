@@ -56,7 +56,8 @@ public class NewMainActivity extends Activity
 			@Override
 			protected void onPostExecute(ArrayList<NewMainItemViewModel> result)
 			{
-				bindAdapter(result);
+				data.addAll(result);
+				bindAdapter();
 				isLoading = false;
 			}
 
@@ -65,11 +66,12 @@ public class NewMainActivity extends Activity
 
 	BindingAdapter<NewMainItemViewModel> adapter;
 
-	private void bindAdapter(ArrayList<NewMainItemViewModel> result)
+	ArrayList<NewMainItemViewModel> data = new ArrayList<NewMainItemViewModel>();
+	private void bindAdapter()
 	{		
 		if (adapter == null)
 		{			
-			adapter = new BindingAdapter<NewMainItemViewModel>(result, NewMainActivity.this, R.layout.new_main_list_item, NewMainItemViewModel.class) ;			
+			adapter = new BindingAdapter<NewMainItemViewModel>(data, NewMainActivity.this, R.layout.new_main_list_item, NewMainItemViewModel.class) ;			
 			listView.setAdapter(adapter);
 		}
 		else
