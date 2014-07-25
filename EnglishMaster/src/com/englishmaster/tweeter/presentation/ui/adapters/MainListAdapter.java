@@ -78,9 +78,6 @@ public class MainListAdapter extends BaseAdapter
 				}
 			});
 
-			LoadGoodBad(convertView, article);
-
-			ClickEvents(convertView, article);
 			return convertView;
 		}
 		else
@@ -88,53 +85,6 @@ public class MainListAdapter extends BaseAdapter
 			convertView = LayoutInflater.from(context).inflate(R.layout.listitem_main_list_loading, null);
 			return convertView;
 		}
-	}
-
-	private void LoadGoodBad(View convertView, final Article article)
-	{
-		if (article.IsGood)
-		{
-			Button buttonGood = (Button) convertView.findViewById(R.id.buttonGood);
-			buttonGood.setTextColor(Color.rgb(140, 210, 50));
-		}
-		else if (article.IsBad)
-		{
-			Button buttonBad = (Button) convertView.findViewById(R.id.buttonBad);
-			buttonBad.setTextColor(Color.rgb(140, 210, 50));
-		}
-	}
-
-	private void ClickEvents(View convertView, final Article article)
-	{
-		final Button buttonGood = (Button) convertView.findViewById(R.id.buttonGood);
-		buttonGood.setOnClickListener(new OnClickListener()
-		{
-
-			@Override
-			public void onClick(View arg0)
-			{
-				if (!article.IsGood && !article.IsBad)
-				{
-					article.IsGood = true;
-					buttonGood.setTextColor(Color.rgb(140, 210, 50));
-				}
-			}
-		});
-
-		final Button buttonBad = (Button) convertView.findViewById(R.id.buttonBad);
-		buttonBad.setOnClickListener(new OnClickListener()
-		{
-
-			@Override
-			public void onClick(View v)
-			{
-				if (!article.IsGood && !article.IsBad)
-				{
-					article.IsBad = true;
-					buttonBad.setTextColor(Color.rgb(140, 210, 50));
-				}
-			}
-		});
 	}
 
 	private void SetTextLink(TextView textView1, String[] words, View currentView)
@@ -157,8 +107,8 @@ public class MainListAdapter extends BaseAdapter
 			style.clearSpans(); // should clear old spans
 			for (URLSpan url : urls)
 			{
-				MyURLSpan myURLSpan = new MyURLSpan(url.getURL(), context, currentView);
-				style.setSpan(myURLSpan, sp.getSpanStart(url), sp.getSpanEnd(url), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+				//MyURLSpan myURLSpan = new MyURLSpan(url.getURL(), context, currentView);
+				//style.setSpan(myURLSpan, sp.getSpanStart(url), sp.getSpanEnd(url), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 				style.setSpan(new ForegroundColorSpan(Color.BLACK), sp.getSpanStart(url), sp.getSpanEnd(url), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 			}
 			textView1.setText(style);

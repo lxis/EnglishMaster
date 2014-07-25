@@ -78,9 +78,9 @@ public class NewMainViewModel extends BaseViewModel
 			if(article == null)
 				continue;
 			NewMainItemViewModel viewModel = new NewMainItemViewModel();			
-			viewModel.IsBad = article.IsBad;
-			viewModel.IsGood = article.IsGood;
-			viewModel.Content = article.Content;
+			viewModel.SetIsBad(article.IsBad);
+			viewModel.SetIsGood(article.IsGood);
+			viewModel.SetContent(article.Content);
 			viewModels.add(viewModel);
 		}		
 		return  viewModels;

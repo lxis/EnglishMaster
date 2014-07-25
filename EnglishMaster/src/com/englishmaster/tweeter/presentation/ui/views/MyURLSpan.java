@@ -2,6 +2,7 @@ package com.englishmaster.tweeter.presentation.ui.views;
 
 import com.englishmaster.tweeter.R;
 import com.englishmaster.tweeter.data.server.services.YoudaoService;
+import com.englishmaster.tweeter.presentation.ui.viewmodels.NewMainItemViewModel;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -17,66 +18,66 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MyURLSpan extends ClickableSpan {
-    private String mUrl;
-    private Context context;
-    private View currentView;
+public class MyURLSpan extends ClickableSpan
+{
+	private String mUrl;
+	private Context context;
+	private NewMainItemViewModel viewModel;
 
-    public MyURLSpan(String url,Context context,View currentView) {
-            mUrl = url;
-            this.context = context;
-            this.currentView = currentView;
-    }
+	public MyURLSpan(String url, Context context,NewMainItemViewModel viewModel)
+	{
+		mUrl = url;
+		this.viewModel = viewModel;
+	}
 
-    @Override
-    public void updateDrawState(TextPaint ds) {
-        ds.setColor(ds.linkColor);
-        ds.setUnderlineText(false); //<span style="color: red;">//ȥ���»���</span>
-    }
+	@Override
+	public void updateDrawState(TextPaint ds)
+	{
+		ds.setColor(ds.linkColor);
+		ds.setUnderlineText(false); // <span
+						// style="color: red;">//ȥ���»���</span>
+	}
 
-    
-    @Override
-    public void onClick(View widget) {
-    	int i = 0;
-    	int ii = i;
-    	new AsyncTask<String,Integer,String>(){
-    		@Override
-    		protected String doInBackground(String... arg0) {
-    			// TODO Auto-generated method stub
-    			try
-    			{
-    				return new YoudaoService().GetWord(mUrl);
-    			}
-    			catch(IllegalArgumentException e)
-    			{
-    				return "�����ַ�����";     
-    			}
-    		}
-    		@Override
-    		protected void onPostExecute(String result) {
-    			// TODO Auto-generated method stub
-    			super.onPostExecute(result);    			
-    			
-    			TextView translationView = (TextView)currentView.findViewById(R.id.textTranslation);
-    			String currentText = translationView.getText().toString();
-    			LinearLayout translationLinear = (LinearLayout)currentView.findViewById(R.id.linearTranslation);
-    			if(!result.equals(currentText)||translationLinear.getVisibility() == 8)
-    			{
-    				translationView.setText(result);    				
-    				translationLinear.setVisibility(0);
-    			}
-    			else
-    			{
-    				translationLinear.setVisibility(8);
-    			}
-    			
-    			
-    			
-    			
-    		}
-    	}.execute(mUrl);
-    	
-            // TODO Auto-generated method stub
-            //Toast.makeText(mUrl).show();
-    }
+	@Override
+	public void onClick(View widget)
+	{
+		new AsyncTask<String, Integer, String>()
+		{
+			@Override
+			protected String doInBackground(String... arg0)
+			{
+				// TODO Auto-generated method stub
+				try
+				{
+					return new YoudaoService().GetWord(mUrl);
+				}
+				catch (IllegalArgumentException e)
+				{
+					return "�����ַ�����";
+				}
+			}
+
+			@Override
+			protected void onPostExecute(String result)
+			{
+				// TODO Auto-generated method stub
+				super.onPostExecute(result);
+				
+				
+				if (!result.equals(viewModel.TranslationText) ||viewModel.TranslationVisibility == View.GONE)
+				{
+					viewModel.SetTranslationText(result);					
+					viewModel.SetTranslationVisibility(View.VISIBLE);
+				}
+				else
+				{
+					viewModel.SetTranslationVisibility(View.GONE);
+				}
+
+			}
+		}.execute(mUrl);
+
+		// TODO Auto-generated method stub
+		// Toast.makeText(mUrl).show();
+	}
 }
