@@ -20,7 +20,7 @@ public class MainListProvider
 	}
 
 	private int preloadCount = 1;
-	private int singleCount = 1;
+	private int singleCount = 2;
 
 	private int lastIndex = 1;
 

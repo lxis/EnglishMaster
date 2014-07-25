@@ -70,9 +70,20 @@ public class NewMainViewModel extends BaseViewModel
 		});
 	}
 
-	public ArrayList<Article> LoadData()
+	public ArrayList<NewMainItemViewModel> LoadData()
 	{
-		return listProvider.LoadData();
+		ArrayList<NewMainItemViewModel> viewModels = new ArrayList<NewMainItemViewModel>();
+		for(Article article : listProvider.LoadData())
+		{
+			if(article == null)
+				continue;
+			NewMainItemViewModel viewModel = new NewMainItemViewModel();			
+			viewModel.IsBad = article.IsBad;
+			viewModel.IsGood = article.IsGood;
+			viewModel.Content = article.Content;
+			viewModels.add(viewModel);
+		}		
+		return  viewModels;
 	}
 
 	public boolean IsNeedLoadData(int totalCount, int lastPosition)

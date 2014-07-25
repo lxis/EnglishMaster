@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e6e6e6"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:background="#ffffff"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:lineSpacingMultiplier="1.15"
+            android:tag="Text=>Content"
+            android:text="miaoh"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e6e6e6" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" 
+            android:visibility="gone"
+            >
+            
+            <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center"
+	            android:layout_margin ="15dp"	           
+	            android:lineSpacingMultiplier="1.15"
+	            android:textSize="20dp" />
+
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="1dp"
+	            android:background="#e6e6e6" />
+        
+            
+            
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#fafafa"
+                android:text="真倒霉"
+                android:textColor="#929292"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#e6e6e6" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#fafafa"
+                android:text="很正常"
+                android:textColor="#929292"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

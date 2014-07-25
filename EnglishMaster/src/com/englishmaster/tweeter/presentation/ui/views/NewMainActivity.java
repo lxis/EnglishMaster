@@ -8,6 +8,7 @@ import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BaseViewModel;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BindingAdapter;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.ViewModelBinder;
 import com.englishmaster.tweeter.presentation.ui.adapters.MainListAdapter;
+import com.englishmaster.tweeter.presentation.ui.viewmodels.NewMainItemViewModel;
 import com.englishmaster.tweeter.presentation.ui.viewmodels.NewMainViewModel;
 
 import android.app.Activity;
@@ -44,16 +45,16 @@ public class NewMainActivity extends Activity
 	{
 		if (isLoading) return;
 		isLoading = true;
-		new AsyncTask<String, Integer, ArrayList<Article>>()
+		new AsyncTask<String, Integer, ArrayList<NewMainItemViewModel>>()
 		{
 			@Override
-			protected ArrayList<Article> doInBackground(String... params)
+			protected ArrayList<NewMainItemViewModel> doInBackground(String... params)
 			{
 				return viewModel.LoadData();
 			}
 
 			@Override
-			protected void onPostExecute(ArrayList<Article> result)
+			protected void onPostExecute(ArrayList<NewMainItemViewModel> result)
 			{
 				bindAdapter(result);
 				isLoading = false;
@@ -62,13 +63,13 @@ public class NewMainActivity extends Activity
 		}.execute("");
 	}
 
-	MainListAdapter adapter;
+	BindingAdapter<NewMainItemViewModel> adapter;
 
-	private void bindAdapter(ArrayList<Article> result)
-	{
+	private void bindAdapter(ArrayList<NewMainItemViewModel> result)
+	{		
 		if (adapter == null)
-		{
-			adapter = new MainListAdapter(result, NewMainActivity.this);
+		{			
+			adapter = new BindingAdapter<NewMainItemViewModel>(result, NewMainActivity.this, R.layout.new_main_list_item, NewMainItemViewModel.class) ;			
 			listView.setAdapter(adapter);
 		}
 		else
