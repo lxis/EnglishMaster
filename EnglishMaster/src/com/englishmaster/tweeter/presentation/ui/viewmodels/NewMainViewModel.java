@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.graphics.Color;
 import android.opengl.Visibility;
 import android.view.View;
-
 import android.view.View.OnClickListener;
 
 import com.englishmaster.tweeter.domain.model.Article;
@@ -35,7 +34,9 @@ public class NewMainViewModel extends BaseViewModel
 
 	public int CurrentButtonColor = Color.rgb(140, 210, 50);
 
-	public int ReleasedButtonColor = Color.rgb(255, 255, 255);
+	public int ReleasedButtonColor = Color.rgb(255, 255, 255);	
+
+	public ArrayList<NewMainItemViewModel> Data = new ArrayList<NewMainItemViewModel>();
 
 	public NewMainViewModel()
 	{
@@ -68,6 +69,15 @@ public class NewMainViewModel extends BaseViewModel
 				SetBottomButtonTwoTextColor(CurrentButtonColor);
 			}
 		});
+		NewMainItemViewModel emptyModel = new NewMainItemViewModel();
+		emptyModel.SetIsNotShowLoading(View.GONE);
+		emptyModel.SetIsShowLoading(View.VISIBLE);
+		Data.add(emptyModel);
+	}
+	
+	public void AddData(ArrayList<NewMainItemViewModel> result)
+	{
+		Data.addAll(Data.size()-1, result);
 	}
 
 	public ArrayList<NewMainItemViewModel> LoadData()

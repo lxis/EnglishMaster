@@ -11,8 +11,9 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="10dp"
         android:background="#ffffff"
-        android:orientation="vertical" >
-
+        android:orientation="vertical"        
+		android:tag="Visibility=>IsNotShowLoading"  
+        >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,6 +81,14 @@
                 android:tag="TextColor=>IsBadColor,OnClick=>BadCommand" 
                 />
         </LinearLayout>
-    </LinearLayout>
 
+    </LinearLayout>
+            <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:text="加载中……"
+		        android:textSize="20dp"
+		        android:tag="Visibility=>IsShowLoading" 
+		        />
 </LinearLayout>

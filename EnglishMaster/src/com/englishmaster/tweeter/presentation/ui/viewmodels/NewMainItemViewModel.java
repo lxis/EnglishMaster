@@ -15,6 +15,18 @@ import com.englishmaster.tweeter.presentation.ui.views.MyURLSpan;
 
 public class NewMainItemViewModel extends BaseViewModel
 {
+	public int IsNotShowLoading;
+	public void SetIsNotShowLoading(int isNotShowLoading)
+	{
+		this.IsNotShowLoading = isNotShowLoading;
+	}
+	
+	public int IsShowLoading;
+	public void SetIsShowLoading(int isShowLoading)
+	{
+		this.IsShowLoading = isShowLoading;
+	} 
+	
 	public String TranslationText;
 	public void SetTranslationText(String translationText)
 	{
@@ -76,7 +88,9 @@ public class NewMainItemViewModel extends BaseViewModel
 			}
 		});
 		SetTranslationVisibility(View.GONE);
-	}	
+		SetIsNotShowLoading(View.VISIBLE);
+		SetIsShowLoading(View.GONE);
+	}
 	
 	private void SetTextLink()
 	{
