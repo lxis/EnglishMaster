@@ -7,6 +7,7 @@ import com.englishmaster.tweeter.data.storage.StorageSetting;
 import com.englishmaster.tweeter.domain.services.settings.ShopCar;
 import com.englishmaster.tweeter.domain.services.settings.ShopCarSetting;
 import com.englishmaster.tweeter.infrastructure.common.common_simple_handlers.CommonSimpleHandlerGenic;
+import com.englishmaster.tweeter.infrastructure.ui.AsyncHelper;
 import com.englishmaster.tweeter.infrastructure.ui.BaseActivity;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BindingAdapter;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.ViewModelBinder;
@@ -25,7 +26,6 @@ import android.widget.AbsListView.OnScrollListener;
 
 public class NewMainActivity extends BaseActivity
 {
-
 
 	NewMainViewModel viewModel = new NewMainViewModel();
 	ListView listView;
@@ -50,21 +50,16 @@ public class NewMainActivity extends BaseActivity
 		{
 			e.printStackTrace();
 		}
-
-
-
 	}
-	
 
-	
 	private void newNavigate()
 	{
 		addHandler(MainPageParam.class, new CommonSimpleHandlerGenic<Object>()
-		{			
+		{
 			@Override
 			public <T> void Run(T item)
 			{
-				String title = ((MainPageParam) item).Title;				
+				String title = ((MainPageParam) item).Title;
 			}
 		});
 
@@ -73,55 +68,51 @@ public class NewMainActivity extends BaseActivity
 		param.Title = "title";
 		navigate(NewMainActivity.class, param);
 	}
-	
+
 	public static class MainPageParam
 	{
 		public String Title;
 	}
-	
+
 	private void oldNavigate()
 	{
-		Intent t = new Intent(NewMainActivity.this,NewNewActivity.class);
+		Intent t = new Intent(NewMainActivity.this, NewNewActivity.class);
 		t.putExtra("title", "title");
 		t.putExtra("message", "message");
 		startActivityForResult(t, NewNewActivityRequestCode);
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		if(requestCode == NewNewActivityRequestCode&& resultCode == MainPageParamRequestCode)
+		if (requestCode == NewNewActivityRequestCode && resultCode == MainPageParamRequestCode)
 		{
 			String title = data.getStringExtra("Title");
 		}
 	}
-	
+
 	public static int NewNewActivityRequestCode = 100;
-	public static int MainPageParamRequestCode  = 100;
-	
+	public static int MainPageParamRequestCode = 100;
+
 	Boolean isLoading = false;
 
 	private void bindList()
 	{
 		if (isLoading) return;
 		isLoading = true;
-		new AsyncTask<String, Integer, ArrayList<NewMainItemViewModel>>()
-		{
+		new AsyncHelper<ArrayList<NewMainItemViewModel>>(){
 			@Override
-			protected ArrayList<NewMainItemViewModel> doInBackground(String... params)
-			{
+			protected ArrayList<NewMainItemViewModel> await(){
 				return viewModel.LoadData();
 			}
 
 			@Override
-			protected void onPostExecute(ArrayList<NewMainItemViewModel> result)
-			{
+			protected void async(ArrayList<NewMainItemViewModel> result){
 				viewModel.AddData(result);
 				bindAdapter();
 				isLoading = false;
 			}
-
-		}.execute("");
+		};
 	}
 
 	BindingAdapter<NewMainItemViewModel> adapter;

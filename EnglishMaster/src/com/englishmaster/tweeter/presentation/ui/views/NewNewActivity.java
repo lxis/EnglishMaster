@@ -12,7 +12,8 @@ public class NewNewActivity extends BaseActivity
 	public static class NewNewActivityParam
 	{
 		public String Title;
-		public String Message;			
+		public String Message;		
+		public int aa;		
 	}
 	
 	@Override
@@ -25,7 +26,7 @@ public class NewNewActivity extends BaseActivity
 
 	private void newNavigate()
 	{
-		NewNewActivityParam param1 = getParam(NewNewActivityParam.class);				
+		NewNewActivityParam param1 = getParam(NewNewActivityParam.class);			
 		MainPageParam param = new MainPageParam();
 		param.Title = "aaa";		
 		setResult(param);
