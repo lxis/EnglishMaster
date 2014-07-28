@@ -18,11 +18,13 @@ public class BaseActivity extends Activity
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data){	
 		super.onActivityResult(requestCode, resultCode, data);		
-		HashMap<String, CommonSimpleHandlerGenic<Object>> resultHandler =  Result.get(requestCode);		
 		Bundle bundle = data.getExtras();
 		String resultType = bundle.getString("ResultType");
-		CommonSimpleHandlerGenic<Object> handler = resultHandler.get(resultType);
-		handler.Run(bundle.get("Result"));			
+		String result = bundle.getString("Result");
+//		new Gson().fromJson(json, typeOfT) result
+//		CommonSimpleHandlerGenic<Object> handler = Result.get(resultType);
+//		handler.Run(item);
+//		handler.Run(bundle.get("Result"));			
 	}
 	
 	public void setResult(Object object)
@@ -40,10 +42,14 @@ public class BaseActivity extends Activity
 		return new Gson().fromJson(getIntent().getExtras().getString("NavigateParam"),classType);
 	}
 
-	private HashMap<Integer, HashMap<String, CommonSimpleHandlerGenic<Object>>> Result = new HashMap<Integer, HashMap<String, CommonSimpleHandlerGenic<Object>>>();		
+	private HashMap<String, CommonSimpleHandlerGenic<Object>> Result = new HashMap<String,CommonSimpleHandlerGenic<Object>>();		
 
+	public void addHandler(Class classType, CommonSimpleHandlerGenic<Object> handler)
+	{
+		Result.put(classType.getName(), handler);
+	}
 	
-	public void navigate(Class navigateClass,Object info,HashMap<String, CommonSimpleHandlerGenic<Object>> handler)
+	public void navigate(Class navigateClass,Object info)
 	{		
 		Intent intent = new Intent(this,navigateClass);
 		Bundle b = new Bundle(); 		
@@ -51,23 +57,13 @@ public class BaseActivity extends Activity
 		int key = new Random().nextInt();
 		b.putInt("Result", key);//避免重复
 		intent.putExtras(b);
-		Result.put(key, handler);
+//		Result.put(key, handler);
 		this.startActivityForResult(intent,key);
-	}
-	
-	public void navigate(Class navigateClass,Object info)
-	{
-		navigate(navigateClass,info,new HashMap<String, CommonSimpleHandlerGenic<Object>>());
-	}
+	}	
 	
 	public void navigate(Class navigateClass)
 	{
-		navigate(navigateClass, null, new HashMap<String, CommonSimpleHandlerGenic<Object>>());
-	}
-	
-	public void navigate(Class navigateClass,HashMap<String,CommonSimpleHandlerGenic<Object>> handlers)
-	{
-		navigate(navigateClass, null, handlers);		
+		navigate(navigateClass, null);
 	}
 	
 	

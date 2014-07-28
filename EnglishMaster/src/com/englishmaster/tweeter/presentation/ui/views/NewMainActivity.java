@@ -1,8 +1,6 @@
 package com.englishmaster.tweeter.presentation.ui.views;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
 
 import com.englishmaster.tweeter.R;
 import com.englishmaster.tweeter.data.storage.StorageSetting;
@@ -12,12 +10,10 @@ import com.englishmaster.tweeter.infrastructure.common.common_simple_handlers.Co
 import com.englishmaster.tweeter.infrastructure.ui.BaseActivity;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BindingAdapter;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.ViewModelBinder;
-import com.englishmaster.tweeter.presentation.ui.messages.MainPageNavigateParam;
 import com.englishmaster.tweeter.presentation.ui.viewmodels.NewMainItemViewModel;
 import com.englishmaster.tweeter.presentation.ui.viewmodels.NewMainViewModel;
-import com.google.gson.Gson;
+import com.englishmaster.tweeter.presentation.ui.views.NewNewActivity.NewNewActivityParam;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -29,6 +25,8 @@ import android.widget.AbsListView.OnScrollListener;
 
 public class NewMainActivity extends BaseActivity
 {
+
+
 	NewMainViewModel viewModel = new NewMainViewModel();
 	ListView listView;
 
@@ -41,25 +39,65 @@ public class NewMainActivity extends BaseActivity
 		listView = (ListView) findViewById(R.id.newMainList);
 		initViews();
 		bindList();
-		
+
 		try
 		{
-			ShopCarSetting shopCar =StorageSetting.Get(ShopCarSetting.class);				
-			shopCar.ShopCars.add(new ShopCar(1,"好东西",100));
+			ShopCarSetting shopCar = StorageSetting.Get(ShopCarSetting.class);
+			shopCar.ShopCars.add(new ShopCar(1, "好东西", 100));
 			StorageSetting.Set(shopCar);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		
-		
-		navigate(NewMainActivity.class, new MainPageNavigateParam("tititle"));
-		
-		MainPageNavigateParam param = getParam(MainPageNavigateParam.class);
-		
-		setResult(new MainPageNavigateParam("aa"));					
+
+
+
 	}
+	
+
+	
+	private void newNavigate()
+	{
+		addHandler(MainPageParam.class, new CommonSimpleHandlerGenic<Object>()
+		{			
+			@Override
+			public <T> void Run(T item)
+			{
+				String title = ((MainPageParam) item).Title;				
+			}
+		});
+
+		NewNewActivityParam param = new NewNewActivityParam();
+		param.Message = "message";
+		param.Title = "title";
+		navigate(NewMainActivity.class, param);
+	}
+	
+	public static class MainPageParam
+	{
+		public String Title;
+	}
+	
+	private void oldNavigate()
+	{
+		Intent t = new Intent(NewMainActivity.this,NewNewActivity.class);
+		t.putExtra("title", "title");
+		t.putExtra("message", "message");
+		startActivityForResult(t, NewNewActivityRequestCode);
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if(requestCode == NewNewActivityRequestCode&& resultCode == MainPageParamRequestCode)
+		{
+			String title = data.getStringExtra("Title");
+		}
+	}
+	
+	public static int NewNewActivityRequestCode = 100;
+	public static int MainPageParamRequestCode  = 100;
 	
 	Boolean isLoading = false;
 
@@ -89,10 +127,10 @@ public class NewMainActivity extends BaseActivity
 	BindingAdapter<NewMainItemViewModel> adapter;
 
 	private void bindAdapter()
-	{		
+	{
 		if (adapter == null)
-		{			
-			adapter = new BindingAdapter<NewMainItemViewModel>(viewModel.Data, NewMainActivity.this, R.layout.new_main_list_item, NewMainItemViewModel.class) ;			
+		{
+			adapter = new BindingAdapter<NewMainItemViewModel>(viewModel.Data, NewMainActivity.this, R.layout.new_main_list_item, NewMainItemViewModel.class);
 			listView.setAdapter(adapter);
 		}
 		else
