@@ -13,7 +13,7 @@ public class TweeterService {
 	public ArrayList<Article> GetTweeters(int lastIndex, int singleCount)
 	{
 		RestRequest request = GenerateRequest(lastIndex,singleCount);
-		TweetsResponseDTO jsonObject = new RestClient().GetDtoFromServer(request, TweetsResponseDTO.class);
+		TweetsResponseDTO jsonObject = RestClient.GetDtoFromServer(request, TweetsResponseDTO.class);
 		return ConvertDtoToDomain(jsonObject);		
 	}
 

@@ -7,11 +7,10 @@ import org.apache.http.message.BasicNameValuePair;
 import com.google.gson.Gson;
 
 public class RestClient {
-
-	RestCommonClient restCommonClient = new RestCommonClient();
 	
-	public <T> T GetDtoFromServer(RestRequest request ,Class<T> classType)
+	public static <T> T GetDtoFromServer(RestRequest request ,Class<T> classType)
 	{
+		RestCommonClient restCommonClient = new RestCommonClient();
 		String url = GenerateUrlByRequest(request);				
 			String result = restCommonClient.GetStringFromNetwork(url);
 			if(classType == String.class)
@@ -20,7 +19,7 @@ public class RestClient {
 			return jsonObject;				
 	}
 
-	private String GenerateUrlByRequest(RestRequest request) {
+	private static String GenerateUrlByRequest(RestRequest request) {
 		if(request.GetParamDic.size()==0)
 			return request.Url;
 		request.Url+= "?";
@@ -29,8 +28,9 @@ public class RestClient {
 		return request.Url;
 	}
 	
-	public InputStream GetStreamFromServer(RestRequest request)
+	public static InputStream GetStreamFromServer(RestRequest request)
 	{
+		RestCommonClient restCommonClient = new RestCommonClient();
 		String url = GenerateUrlByRequest(request);
 		InputStream result = restCommonClient.GetStreamFromNetwork(url);		
 		return result;

@@ -15,6 +15,14 @@ import com.google.gson.Gson;
 
 public class BaseActivity extends Activity
 {
+	NavigateHelper navigateHelper;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		navigateHelper = NavigateHelper.from(this);
+	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data){	
 		super.onActivityResult(requestCode, resultCode, data);		
@@ -40,31 +48,5 @@ public class BaseActivity extends Activity
 	public <T> T getParam(Class<T> classType )
 	{
 		return new Gson().fromJson(getIntent().getExtras().getString("NavigateParam"),classType);
-	}
-
-	private HashMap<String, CommonSimpleHandlerGenic<Object>> Result = new HashMap<String,CommonSimpleHandlerGenic<Object>>();		
-
-	public void registerResultHandler(Class classType, CommonSimpleHandlerGenic<Object> handler)
-	{
-		Result.put(classType.getName(), handler);
-	}
-	
-	public void navigate(Class navigateClass,Object info)
-	{		
-		Intent intent = new Intent(this,navigateClass);
-		Bundle b = new Bundle(); 		
-		b.putString("NavigateParam", new Gson().toJson(info));
-		int key = new Random().nextInt();
-		b.putInt("Result", key);//避免重复
-		intent.putExtras(b);
-//		Result.put(key, handler);
-		this.startActivityForResult(intent,key);
-	}	
-	
-	public void navigate(Class navigateClass)
-	{
-		navigate(navigateClass, null);
-	}
-	
-	
+	}		
 }
