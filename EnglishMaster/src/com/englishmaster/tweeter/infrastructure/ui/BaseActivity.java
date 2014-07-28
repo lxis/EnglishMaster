@@ -44,7 +44,7 @@ public class BaseActivity extends Activity
 
 	private HashMap<String, CommonSimpleHandlerGenic<Object>> Result = new HashMap<String,CommonSimpleHandlerGenic<Object>>();		
 
-	public void addHandler(Class classType, CommonSimpleHandlerGenic<Object> handler)
+	public void registerResultHandler(Class classType, CommonSimpleHandlerGenic<Object> handler)
 	{
 		Result.put(classType.getName(), handler);
 	}

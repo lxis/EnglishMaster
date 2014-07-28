@@ -13,7 +13,7 @@ import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BindingAdapter;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.ViewModelBinder;
 import com.englishmaster.tweeter.presentation.ui.viewmodels.NewMainItemViewModel;
 import com.englishmaster.tweeter.presentation.ui.viewmodels.NewMainViewModel;
-import com.englishmaster.tweeter.presentation.ui.views.NewNewActivity.NewNewActivityParam;
+import com.englishmaster.tweeter.presentation.ui.views.BActivity.BActivityParam;
 
 import android.content.Context;
 import android.content.Intent;
@@ -54,29 +54,29 @@ public class NewMainActivity extends BaseActivity
 
 	private void newNavigate()
 	{
-		addHandler(MainPageParam.class, new CommonSimpleHandlerGenic<Object>()
+		registerResultHandler(MainActivityResultParam.class, new CommonSimpleHandlerGenic<Object>()
 		{
 			@Override
 			public <T> void Run(T item)
 			{
-				String title = ((MainPageParam) item).Title;
+				String title = ((MainActivityResultParam) item).Title;
 			}
 		});
 
-		NewNewActivityParam param = new NewNewActivityParam();
+		BActivityParam param = new BActivityParam();
 		param.Message = "message";
 		param.Title = "title";
 		navigate(NewMainActivity.class, param);
 	}
 
-	public static class MainPageParam
+	public static class MainActivityResultParam
 	{
 		public String Title;
 	}
 
 	private void oldNavigate()
 	{
-		Intent t = new Intent(NewMainActivity.this, NewNewActivity.class);
+		Intent t = new Intent(NewMainActivity.this, BActivity.class);
 		t.putExtra("title", "title");
 		t.putExtra("message", "message");
 		startActivityForResult(t, NewNewActivityRequestCode);
