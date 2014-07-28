@@ -2,6 +2,7 @@ package com.englishmaster.tweeter.presentation.ui.views;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import com.englishmaster.tweeter.R;
 import com.englishmaster.tweeter.data.storage.StorageSetting;
@@ -11,11 +12,13 @@ import com.englishmaster.tweeter.infrastructure.common.common_simple_handlers.Co
 import com.englishmaster.tweeter.infrastructure.ui.AsyncHelper;
 import com.englishmaster.tweeter.infrastructure.ui.BaseActivity;
 import com.englishmaster.tweeter.infrastructure.ui.NavigateHelper;
+import com.englishmaster.tweeter.infrastructure.ui.NavigationInterface;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BindingAdapter;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.ViewModelBinder;
 import com.englishmaster.tweeter.presentation.ui.viewmodels.NewMainItemViewModel;
 import com.englishmaster.tweeter.presentation.ui.viewmodels.NewMainViewModel;
 import com.englishmaster.tweeter.presentation.ui.views.BActivity.BActivityParam;
+import com.google.gson.Gson;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -76,14 +79,16 @@ public class NewMainActivity extends BaseActivity
 		param.Message = "message";
 		param.Title = "title";
 
-		NavigateHelper.from(this).to(BActivity.class).param(param)
+		Navigate(BActivity.class)
+		.param(param)
 		.handler(MainActivityResultParam.class, new CommonSimpleHandlerGenic<Object>(){
 			@Override
 			public <T> void Run(T item)	{
 				String title = ((MainActivityResultParam) item).Title;
 			}
-		}).go();
-	}
+		})
+		.go();
+	}		
 
 	public static class MainActivityResultParam
 	{
