@@ -17,9 +17,7 @@ import com.englishmaster.tweeter.presentation.ui.viewmodels.NewMainItemViewModel
 import com.englishmaster.tweeter.presentation.ui.viewmodels.NewMainViewModel;
 import com.englishmaster.tweeter.presentation.ui.views.BActivity.BActivityParam;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.AbsListView;
