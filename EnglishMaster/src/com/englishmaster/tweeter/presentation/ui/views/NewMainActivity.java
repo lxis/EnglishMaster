@@ -1,6 +1,7 @@
 package com.englishmaster.tweeter.presentation.ui.views;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.englishmaster.tweeter.R;
 import com.englishmaster.tweeter.data.storage.StorageSetting;
@@ -9,6 +10,7 @@ import com.englishmaster.tweeter.domain.services.settings.ShopCarSetting;
 import com.englishmaster.tweeter.infrastructure.common.common_simple_handlers.CommonSimpleHandlerGenic;
 import com.englishmaster.tweeter.infrastructure.ui.AsyncHelper;
 import com.englishmaster.tweeter.infrastructure.ui.BaseActivity;
+import com.englishmaster.tweeter.infrastructure.ui.NavigateHelper;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.BindingAdapter;
 import com.englishmaster.tweeter.infrastructure.ui.mvvm.facade.ViewModelBinder;
 import com.englishmaster.tweeter.presentation.ui.viewmodels.NewMainItemViewModel;
@@ -52,21 +54,37 @@ public class NewMainActivity extends BaseActivity
 		}
 	}
 
-	private void newNavigate()
-	{
-		registerResultHandler(MainActivityResultParam.class, new CommonSimpleHandlerGenic<Object>()
-		{
-			@Override
-			public <T> void Run(T item)
-			{
-				String title = ((MainActivityResultParam) item).Title;
-			}
-		});
+//	private void newNavigate()
+//	{
+//		HashMap<K, V>
+//		registerResultHandler(MainActivityResultParam.class, new CommonSimpleHandlerGenic<Object>()
+//		{
+//			@Override
+//			public <T> void Run(T item)
+//			{
+//				String title = ((MainActivityResultParam) item).Title;
+//			}
+//		});
+//
+//		BActivityParam param = new BActivityParam();
+//		param.Message = "message";
+//		param.Title = "title";
+//		navigate(NewMainActivity.class, param);				
+//	}
 
+	private void dslNavigate()
+	{
 		BActivityParam param = new BActivityParam();
 		param.Message = "message";
 		param.Title = "title";
-		navigate(NewMainActivity.class, param);
+
+		NavigateHelper.from(this).to(BActivity.class).param(param)
+		.handler(MainActivityResultParam.class, new CommonSimpleHandlerGenic<Object>(){
+			@Override
+			public <T> void Run(T item)	{
+				String title = ((MainActivityResultParam) item).Title;
+			}
+		}).go();
 	}
 
 	public static class MainActivityResultParam
@@ -100,14 +118,17 @@ public class NewMainActivity extends BaseActivity
 	{
 		if (isLoading) return;
 		isLoading = true;
-		new AsyncHelper<ArrayList<NewMainItemViewModel>>(){
+		new AsyncHelper<ArrayList<NewMainItemViewModel>>()
+		{
 			@Override
-			protected ArrayList<NewMainItemViewModel> await(){
+			protected ArrayList<NewMainItemViewModel> await()
+			{
 				return viewModel.LoadData();
 			}
 
 			@Override
-			protected void async(ArrayList<NewMainItemViewModel> result){
+			protected void async(ArrayList<NewMainItemViewModel> result)
+			{
 				viewModel.AddData(result);
 				bindAdapter();
 				isLoading = false;
