@@ -10,14 +10,18 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.englishmaster.tweeter.infrastructure.common.common_simple_handlers.CommonSimpleHandlerGenic;
+
 import com.google.gson.Gson;
 
 public class BaseActivity extends Activity
-{	
+{
+	NavigateHelper navigateHelper;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		navigateHelper = NavigateHelper.from(this);
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data){	
@@ -30,23 +34,6 @@ public class BaseActivity extends Activity
 //		handler.Run(item);
 //		handler.Run(bundle.get("Result"));			
 	}
-	
-	public NavigationInterface Navigate(Class classType)
-	{
-		return new NavigationInterface(this,classType);
-	}
-	
-	public void go(Class NavigateClass,Object Param,HashMap<Class, CommonSimpleHandlerGenic<Object>> Handlers)
-	{		
-		Intent intent = new Intent(this,NavigateClass);
-		Bundle b = new Bundle(); 		
-		b.putString("NavigateParam", new Gson().toJson(Param));
-		int key = new Random().nextInt();
-		b.putInt("Result", key);//避免重复
-		intent.putExtras(b);
-//		Result.put(key, handler);
-		this.startActivityForResult(intent,key);
-	}	
 	
 	public void setResult(Object object)
 	{
