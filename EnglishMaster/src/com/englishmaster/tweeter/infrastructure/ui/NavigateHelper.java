@@ -13,45 +13,14 @@ import com.google.gson.Gson;
 
 public class NavigateHelper
 {
-	public static NavigateHelper from(Activity activity)
+	public NavigateHelper(Activity activity)
 	{
-		NavigateHelper helper = new NavigateHelper();
-		helper.Context = activity;
-		return helper;
-	}
+		this.Context = activity;		
+	}	
 	
-	public NavigateHelper to(Class classType)
-	{
-		this.NavigateClass = classType;
-		return this;
-	}
+	Activity Context;		
 	
-	public NavigateHelper param(Object param)
-	{
-		this.Param = param;
-		return this;
-	}
-	
-	public NavigateHelper handler(Class classType,CommonSimpleHandlerGenic<Object> handler)
-	{
-		Handlers.put(classType, handler);
-		return this;
-	}
-	
-	Class NavigateClass;
-	
-	Object Param;
-	
-	Activity Context;
-	
-	HashMap<Class, CommonSimpleHandlerGenic<Object>> Handlers = new HashMap<Class, CommonSimpleHandlerGenic<Object>>();
-	
-	void addHandler(Class classType,CommonSimpleHandlerGenic<Object> handler)	
-	{
-		Handlers.put(classType, handler);
-	}
-	
-	public void go()
+	public void go(Class NavigateClass,Object Param,HashMap<Class, CommonSimpleHandlerGenic<Object>> Handlers)
 	{		
 		Intent intent = new Intent(Context,NavigateClass);
 		Bundle b = new Bundle(); 		
